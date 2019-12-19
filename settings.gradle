@@ -1,0 +1,6 @@
+
+rootProject.name = 'product-pet'
+
+include 'domain'
+include 'usecase'
+

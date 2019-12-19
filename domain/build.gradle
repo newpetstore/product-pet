@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+    id 'java-library'
+    id 'eclipse'
+}
+
+dependencies {
+    // New Pet Store Dependencies
+    implementation 'petstore:common-utils:1.0.5'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    
+    compileOnly 'org.projectlombok:lombok:1.18.10'
+    annotationProcessor 'org.projectlombok:lombok:1.18.10'
+}
+
+test {
+    useJUnitPlatform()
+}
+
