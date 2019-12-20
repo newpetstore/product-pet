@@ -15,6 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
+import petstore.pet.usecase.exception.PetAlreadyExistsException;
 import petstore.pet.usecase.exception.PetValidationException;
 import petstore.pet.usecase.port.CategoryDatastore;
 import petstore.pet.usecase.port.PetDatastore;
@@ -77,5 +78,30 @@ public class CreatePetTest {
 		
 		// assert
 		assertEquals("category.not.found", e.getMessage());
+	}
+	
+	@Test
+	public void should_throw_when_id_already_exists() {
+		
+		// setup
+		String petId = "petx0";
+		String categoryId = "catx1";
+		
+		Category category = new Category(categoryId, "a cat", "cat desc");
+
+		Pet pet = new Pet(petId, "pet name", LocalDate.now(),
+				"a bio", category);
+		
+		when(pets.get(petId))
+			.thenReturn(Optional.of(pet));
+		
+		// assert
+		assertThrows(PetAlreadyExistsException.class, () -> {
+			
+			// act
+			usecase.create(pet);
+			
+		});
+		
 	}
 }

@@ -18,7 +18,6 @@ package petstore.pet.usecase;
 import static java.util.Objects.requireNonNull;
 import static petstore.pet.usecase.PetValidator.requireValid;
 
-import common.utils.log.Logging;
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
@@ -32,8 +31,6 @@ import petstore.pet.usecase.port.PetDatastore;
  *
  */
 public class CreatePet {
-	
-	private static Logging log;
 	
 	private final PetDatastore pets;
 	private final CategoryDatastore categories;
@@ -60,7 +57,14 @@ public class CreatePet {
 	public void create(Pet pet) {
 		
 		// Validate
-		Pet _pet =  requireValid(pet);
+		Pet _pet = requireValid(pet);
+		
+		// Already exists?
+		pets.get(_pet.getId())
+			.ifPresent((exists) -> {
+				throw new PetAlreadyExistsException("id already exists: " 
+						+ exists.getId());
+			});
 		
 		// Get category by id
 		Category category = 
@@ -68,13 +72,13 @@ public class CreatePet {
 				.orElseThrow(() -> 
 					new PetValidationException("category.not.found"));
 		
-		// Read category from datastore
+		// Read category from data store
 		Pet _tosave = _pet
 			.toBuilder()
-			.category(category)
-			.build();
+				.category(category)
+				.build();
 		
-		// Create using datastore
+		// Create using data store
 		pets.put(_tosave);
 		
 		//TODO Fire event about pet creation
