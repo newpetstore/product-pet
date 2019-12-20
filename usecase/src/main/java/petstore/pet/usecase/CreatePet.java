@@ -16,10 +16,12 @@
 package petstore.pet.usecase;
 
 import static java.util.Objects.requireNonNull;
+import static petstore.pet.usecase.PetValidator.requireValid;
 
 import common.utils.log.Logging;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
+import petstore.pet.usecase.exception.PetValidationException;
 import petstore.pet.usecase.port.CategoryDatastore;
 import petstore.pet.usecase.port.PetDatastore;
 
@@ -51,16 +53,18 @@ public class CreatePet {
 	 * @param pet An instance to create
 	 * @throws PetAlreadyExistsException When the same entity already exists
 	 * inside domain
+	 * @throws PetValidationException When the entity instance is valid
 	 * @throws NullPointerException When pet argument is <code>null</code>
 	 */
 	public void create(Pet pet) {
-		Pet _pet = requireNonNull(pet);
 		
-		//TODO Validate the _pet
+		// Validate
+		Pet _pet =  requireValid(requireNonNull(pet));
 		
 		//TODO Create using datastore
+		pets.put(_pet);
 		
-		//TODO Create using query of CQRS
+		//TODO Fire event about pet creation
 		
 	}
 	

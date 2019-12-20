@@ -15,6 +15,10 @@
  */
 package petstore.pet.usecase.port;
 
+import java.util.Optional;
+
+import petstore.pet.domain.entity.Category;
+
 /**
  * 
  * @author fabiojose
@@ -22,7 +26,25 @@ package petstore.pet.usecase.port;
  */
 public interface CategoryDatastore {
 
-	// 
-	// put(Category category)
-	// 
+	/**
+	 * Creates or Updates categories
+	 * 
+	 * @param category
+	 */
+	void put(Category category);
+	
+	/**
+	 * Reads pets by id
+	 * 
+	 * @param id Identity of Category
+	 * @return An optional found instance of pet
+	 */
+	Optional<Category> get(String id);
+	
+	/**
+	 * Deletes categories by id
+	 * 
+	 * @param id
+	 */
+	void del(String id);
 }

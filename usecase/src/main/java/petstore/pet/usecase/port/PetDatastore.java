@@ -29,7 +29,7 @@ public interface PetDatastore {
 	/**
 	 * Creates or Updates pets
 	 * 
-	 * @param pet
+	 * @param pet Entity instance to create in the domain
 	 */
 	void put(Pet pet);
 	
@@ -44,7 +44,8 @@ public interface PetDatastore {
 	/**
 	 * Deletes pets by id
 	 * 
-	 * @param id
+	 * @param id Identity of entity to delete from domain
+	 * 
 	 */
 	void del(String id);
 }

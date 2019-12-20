@@ -22,5 +22,9 @@ package petstore.pet.usecase.exception;
  */
 public class PetValidationException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
+	
+	public PetValidationException(String message) {
+		super(message);
+	}
 
 }
