@@ -59,7 +59,7 @@ public class CreatePet {
 	public void create(Pet pet) {
 		
 		// Validate
-		Pet _pet =  requireValid(requireNonNull(pet));
+		Pet _pet =  requireValid(pet);
 		
 		//TODO Create using datastore
 		pets.put(_pet);
