@@ -46,9 +46,6 @@ public class PetValidatorTest {
 		final Pet pet = new Pet(null, "a pet", LocalDate.now(), "a bio",
 				new Category("cid", "cname", "cdesc"));
 		
-//		when(pets.get(id))
-//			.thenReturn(Optional.of(pet));
-		
 		// assert
 		PetValidationException e = 
 			assertThrows(PetValidationException.class, () -> {
