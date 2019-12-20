@@ -28,7 +28,7 @@ import lombok.Getter;
  */
 @Getter
 @AllArgsConstructor
-@Builder
+@Builder(toBuilder = true)
 public class Pet {
 
 	private String id;
