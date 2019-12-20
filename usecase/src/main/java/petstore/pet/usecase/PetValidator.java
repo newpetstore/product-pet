@@ -2,6 +2,8 @@ package petstore.pet.usecase;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import java.util.Objects;
+
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetValidationException;
 
@@ -25,13 +27,20 @@ public class PetValidator {
 		}
 	}
 	
+
+	/**
+	 * @throws PetValidationException When the entity instance is valid
+	 * @throws NullPointerException When pet argument is <code>null</code>
+	 */
 	public static Pet requireValid(Pet pet) {
 		
-		validate(pet.getId(), "id");		
-		validate(pet.getName(), "name");
-		validate(pet.getBio(), "bio");
-		validate(pet.getBith(), "birth");
-		validate(pet.getCategory(), "category");
+		Pet _pet = Objects.requireNonNull(pet);
+		
+		validate(_pet.getId(), "id");		
+		validate(_pet.getName(), "name");
+		validate(_pet.getBio(), "bio");
+		validate(_pet.getBith(), "birth");
+		validate(_pet.getCategory(), "category");
 		
 		return pet;
 	}
