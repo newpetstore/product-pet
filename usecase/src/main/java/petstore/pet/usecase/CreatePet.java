@@ -51,7 +51,7 @@ public class CreatePet {
 	 * @param pet An instance to create
 	 * @throws PetAlreadyExistsException When the same entity already exists
 	 * inside domain
-	 * @throws PetValidationException When the entity instance is valid
+	 * @throws PetValidationException When the entity instance is invalid
 	 * @throws NullPointerException When pet argument is <code>null</code>
 	 */
 	public void create(Pet pet) {
