@@ -7,4 +7,5 @@ build
 # Eclipse stuff
 .settings
 .classpath
+.project
 bin/
