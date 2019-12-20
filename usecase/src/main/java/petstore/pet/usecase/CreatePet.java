@@ -62,7 +62,7 @@ public class CreatePet {
 		// Already exists?
 		pets.get(_pet.getId())
 			.ifPresent((exists) -> {
-				throw new PetAlreadyExistsException("id already exists: " 
+				throw new PetAlreadyExistsException("pet already exists: " 
 						+ exists.getId());
 			});
 		
@@ -72,16 +72,16 @@ public class CreatePet {
 				.orElseThrow(() -> 
 					new PetValidationException("category.not.found"));
 		
-		// Read category from data store
+		// Read category from the data store
 		Pet _tosave = _pet
 			.toBuilder()
 				.category(category)
 				.build();
 		
-		// Create using data store
+		// Create using the data store
 		pets.put(_tosave);
 		
-		//TODO Fire event about pet creation
+		//TODO Fire event about pet creation?
 		
 	}
 	
