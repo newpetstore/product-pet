@@ -6,29 +6,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetValidationException;
-import petstore.pet.usecase.port.CategoryDatastore;
-import petstore.pet.usecase.port.PetDatastore;
 
 /**
  * 
  * @author fabiojose
  *
  */
-@ExtendWith(MockitoExtension.class)
 public class PetValidatorTest {
-	
-	@Mock
-	PetDatastore pets;
-	
-	@Mock
-	CategoryDatastore categories;
 	
 	@Test
 	public void should_throw_on_null_pet_arg() {
@@ -42,7 +30,7 @@ public class PetValidatorTest {
 	@Test
 	public void should_throw_on_invalid_pet_id() {
 		
-		//
+		// setup
 		final Pet pet = new Pet(null, "a pet", LocalDate.now(), "a bio",
 				new Category("cid", "cname", "cdesc"));
 		
