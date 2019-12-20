@@ -19,6 +19,7 @@ import static java.util.Objects.requireNonNull;
 import static petstore.pet.usecase.PetValidator.requireValid;
 
 import common.utils.log.Logging;
+import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
 import petstore.pet.usecase.exception.PetValidationException;
@@ -61,8 +62,20 @@ public class CreatePet {
 		// Validate
 		Pet _pet =  requireValid(pet);
 		
-		//TODO Create using datastore
-		pets.put(_pet);
+		// Get category by id
+		Category category = 
+			categories.get(_pet.getCategory().getId())
+				.orElseThrow(() -> 
+					new PetValidationException("category.not.found"));
+		
+		// Read category from datastore
+		Pet _tosave = _pet
+			.toBuilder()
+			.category(category)
+			.build();
+		
+		// Create using datastore
+		pets.put(_tosave);
 		
 		//TODO Fire event about pet creation
 		
