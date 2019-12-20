@@ -9,6 +9,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -32,6 +33,9 @@ public class CreatePetTest {
 	@Mock
 	CategoryDatastore categories;
 	
+	@InjectMocks
+	CreatePet usecase;
+	
 	@Test
 	public void should_throw_on_null_pets_args() {
 		
@@ -50,13 +54,28 @@ public class CreatePetTest {
 		
 	}
 	
-	public void create_ok() {
-		
+	@Test
+	public void should_throw_when_invalid_category() {
+				
 		// setup
+		String categoryId = "catx1";
 		
-		// act
+		when(categories.get(categoryId))
+			.thenReturn(Optional.empty());
+		
+		Pet pet = new Pet("id", "a name", LocalDate.now(), "a bio",
+				new Category(categoryId, null, null));
 		
 		// assert
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
+				
+				// act
+				usecase.create(pet);
+				
+			});
 		
+		// assert
+		assertEquals("category.not.found", e.getMessage());
 	}
 }
