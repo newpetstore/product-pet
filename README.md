@@ -6,7 +6,7 @@ https://www.oracle.com/technetwork/articles/javaee/petstore-137013.html
 
 ## We are using
 
-- java 8
+- java 11
 - gradle
 - lombok
 
