@@ -62,8 +62,7 @@ public class CreatePet {
 		// Already exists?
 		pets.get(_pet.getId())
 			.ifPresent((exists) -> {
-				throw new PetAlreadyExistsException("pet already exists: " 
-						+ exists.getId());
+				throw new PetAlreadyExistsException(exists.getId());
 			});
 		
 		// Get category by id
