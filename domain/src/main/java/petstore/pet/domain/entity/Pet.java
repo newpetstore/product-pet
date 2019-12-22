@@ -16,10 +16,11 @@
 package petstore.pet.domain.entity;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import petstore.pet.domain.exception.NullOrEmptyArgumentException;
 
 /**
  * 
@@ -27,15 +28,39 @@ import lombok.Getter;
  *
  */
 @Getter
-@AllArgsConstructor
-@Builder(toBuilder = true)
 public class Pet {
 
-	private String id;
+	private final String id;
 	
-	private String name;
-	private LocalDate bith;
-	private String bio;
-	private Category category;
+	private final String name;
+	private final LocalDate birth;
+	private final String bio;
+	private final Category category;
+	
+	@Builder(toBuilder = true)
+	Pet(String id, String name, LocalDate birth, String bio, Category category) {
+		this.id = requireNonEmpty(id, "id");
+		this.name = requireNonEmpty(name, "name");
+		this.birth = requireNonEmpty(birth, "birth");
+		this.bio = requireNonEmpty(bio, "bio");
+		this.category = requireNonEmpty(category, "category");
+	}
+	
+	static <T> T requireNonEmpty(T value, String argName) {
+		
+		Optional.ofNullable(value)
+			.orElseThrow(() -> 
+				new NullOrEmptyArgumentException(argName 
+						+ ".should.not.be.null"));
+		
+		if(value instanceof String) {
+			if (((String)value).trim().isEmpty()) {
+				throw new NullOrEmptyArgumentException(argName 
+						+ ".should.not.be.empty");
+			}
+		}
+		
+		return value;
+	}
 	
 }

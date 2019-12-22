@@ -63,9 +63,14 @@ public class CreatePetTest {
 		
 		when(categories.get(categoryId))
 			.thenReturn(Optional.empty());
-		
-		Pet pet = new Pet("id", "a name", LocalDate.now(), "a bio",
-				new Category(categoryId, null, null));
+
+		Pet pet = Pet.builder()
+			.id("id")
+			.name("a pet")
+			.birth(LocalDate.now())
+			.bio("a bio")
+			.category(new Category(categoryId, null, null))
+			.build();
 		
 		// assert
 		PetValidationException e = 
@@ -88,9 +93,14 @@ public class CreatePetTest {
 		String categoryId = "catx1";
 		
 		Category category = new Category(categoryId, "a cat", "cat desc");
-
-		Pet pet = new Pet(petId, "pet name", LocalDate.now(),
-				"a bio", category);
+		
+		Pet pet = Pet.builder()
+			.id(petId)
+			.name("a pet")
+			.birth(LocalDate.now())
+			.bio("a bio")
+			.category(category)
+			.build();
 		
 		when(pets.get(petId))
 			.thenReturn(Optional.of(pet));

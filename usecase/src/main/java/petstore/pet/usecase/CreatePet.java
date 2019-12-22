@@ -16,7 +16,6 @@
 package petstore.pet.usecase;
 
 import static java.util.Objects.requireNonNull;
-import static petstore.pet.usecase.PetValidator.requireValid;
 
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
@@ -57,7 +56,7 @@ public class CreatePet {
 	public void create(Pet pet) {
 		
 		// Validate
-		Pet _pet = requireValid(pet);
+		Pet _pet = requireNonNull(pet);
 		
 		// Already exists?
 		pets.get(_pet.getId())
