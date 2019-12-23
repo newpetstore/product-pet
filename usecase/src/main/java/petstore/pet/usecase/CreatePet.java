@@ -20,7 +20,7 @@ import static java.util.Objects.requireNonNull;
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
-import petstore.pet.usecase.exception.PetValidationException;
+import petstore.pet.domain.exception.PetValidationException;
 import petstore.pet.usecase.port.CategoryDatastore;
 import petstore.pet.usecase.port.PetDatastore;
 

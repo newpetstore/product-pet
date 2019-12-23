@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import petstore.pet.domain.exception.NullOrEmptyArgumentException;
+import petstore.pet.domain.exception.PetValidationException;
 
 /**
  * 
@@ -28,8 +28,8 @@ public class PetTest {
 			.category(new Category("cid", "cname", "cdesc"));
 		
 		// assert
-		NullOrEmptyArgumentException e = 
-			assertThrows(NullOrEmptyArgumentException.class, () -> {
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
 				
 				// act
 				builder.build();
@@ -52,8 +52,8 @@ public class PetTest {
 			.category(new Category("cid", "cname", "cdesc"));
 		
 		// assert
-		NullOrEmptyArgumentException e = 
-			assertThrows(NullOrEmptyArgumentException.class, () -> {
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
 				
 				// act
 				builder.build();
@@ -76,8 +76,8 @@ public class PetTest {
 				.category(new Category("cid", "cname", "cdesc"));
 		
 		// assert
-		NullOrEmptyArgumentException e = 
-			assertThrows(NullOrEmptyArgumentException.class, () -> {
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
 				
 				// act
 				builder.build();
@@ -100,8 +100,8 @@ public class PetTest {
 				.category(new Category("cid", "cname", "cdesc"));
 		
 		// assert
-		NullOrEmptyArgumentException e = 
-			assertThrows(NullOrEmptyArgumentException.class, () -> {
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
 				
 				// act
 				builder.build();
@@ -124,8 +124,8 @@ public class PetTest {
 				.category(new Category("cid", "cname", "cdesc"));
 		
 		// assert
-		NullOrEmptyArgumentException e = 
-			assertThrows(NullOrEmptyArgumentException.class, () -> {
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
 				
 				// act
 				builder.build();
@@ -148,8 +148,8 @@ public class PetTest {
 				.category(null);
 		
 		// assert
-		NullOrEmptyArgumentException e = 
-			assertThrows(NullOrEmptyArgumentException.class, () -> {
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
 				
 				// act
 				builder.build();

@@ -20,7 +20,7 @@ import java.util.Optional;
 
 import lombok.Builder;
 import lombok.Getter;
-import petstore.pet.domain.exception.NullOrEmptyArgumentException;
+import petstore.pet.domain.exception.PetValidationException;
 
 /**
  * 
@@ -50,12 +50,12 @@ public class Pet {
 		
 		Optional.ofNullable(value)
 			.orElseThrow(() -> 
-				new NullOrEmptyArgumentException(argName 
+				new PetValidationException(argName 
 						+ ".should.not.be.null"));
 		
 		if(value instanceof String) {
 			if (((String)value).trim().isEmpty()) {
-				throw new NullOrEmptyArgumentException(argName 
+				throw new PetValidationException(argName 
 						+ ".should.not.be.empty");
 			}
 		}

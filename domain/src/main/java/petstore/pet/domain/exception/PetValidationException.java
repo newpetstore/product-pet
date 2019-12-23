@@ -5,10 +5,10 @@ package petstore.pet.domain.exception;
  * @author fabiojose
  *
  */
-public class NullOrEmptyArgumentException extends RuntimeException {
+public class PetValidationException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
-	public NullOrEmptyArgumentException(String message) {
+	public PetValidationException(String message) {
 		super(message);
 	}
 
