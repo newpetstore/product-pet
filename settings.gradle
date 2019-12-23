@@ -3,4 +3,5 @@ rootProject.name = 'product-pet'
 
 include 'domain'
 include 'usecase'
+include 'adapter-datastore:inmemory'
 
