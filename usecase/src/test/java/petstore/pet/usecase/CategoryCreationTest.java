@@ -21,19 +21,19 @@ import petstore.pet.usecase.port.CategoryDatastore;
  *
  */
 @ExtendWith(MockitoExtension.class)
-public class CreateCategoryTest {
+public class CategoryCreationTest {
 
 	@Mock
 	CategoryDatastore categories;
 	
 	@InjectMocks
-	CreateCategory usecase;
+	CategoryCreation usecase;
 	
 	@Test
 	public void should_throw_when_categories_arg_is_null() {
 		
 		assertThrows(NullPointerException.class, () -> 
-				new CreateCategory(null));
+				new CategoryCreation(null));
 		
 	}
 

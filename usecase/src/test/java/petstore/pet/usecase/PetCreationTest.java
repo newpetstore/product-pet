@@ -26,7 +26,7 @@ import petstore.pet.usecase.port.PetDatastore;
  *
  */
 @ExtendWith(MockitoExtension.class)
-public class CreatePetTest {
+public class PetCreationTest {
 	
 	@Mock
 	PetDatastore pets;
@@ -35,13 +35,13 @@ public class CreatePetTest {
 	CategoryDatastore categories;
 	
 	@InjectMocks
-	CreatePet usecase;
+	PetCreation usecase;
 	
 	@Test
 	public void should_throw_on_null_pets_args() {
 		
 		assertThrows(NullPointerException.class, () -> {
-			new CreatePet(pets, null);
+			new PetCreation(pets, null);
 		});
 		
 	}
@@ -50,7 +50,7 @@ public class CreatePetTest {
 	public void should_throw_on_null_categories_args() {
 		
 		assertThrows(NullPointerException.class, () -> {
-			new CreatePet(null, categories);
+			new PetCreation(null, categories);
 		});
 		
 	}
