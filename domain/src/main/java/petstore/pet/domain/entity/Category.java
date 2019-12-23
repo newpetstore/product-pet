@@ -15,9 +15,11 @@
  */
 package petstore.pet.domain.entity;
 
-import lombok.AllArgsConstructor;
+import java.util.Optional;
+
 import lombok.Builder;
 import lombok.Getter;
+import petstore.pet.domain.exception.CategoryValidationException;
 
 /**
  * 
@@ -25,13 +27,37 @@ import lombok.Getter;
  *
  */
 @Getter
-@AllArgsConstructor
-@Builder
 public class Category {
 
-	private String id;
+	private final String id;
 	
-	private String name;
-	private String description;
+	private final String name;
+	private final String description;
+	
+	/**
+	 * @throws CategoryValidationException When some argument is non-valid
+	 */
+	@Builder(toBuilder = true)
+	Category(String id, String name, String description) {
+		this.id = requireNonEmpty(id, "id");
+		this.name = requireNonEmpty(name, "name");
+		this.description = requireNonEmpty(description, "description");
+	}
+	
+	static <T> T requireNonEmpty(T value, String argName) {
+		Optional.ofNullable(value)
+			.orElseThrow(() -> 
+				new CategoryValidationException(argName 
+						+ ".should.not.be.null"));
+	
+		if(value instanceof String) {
+			if (((String)value).trim().isEmpty()) {
+				throw new CategoryValidationException(argName 
+						+ ".should.not.be.empty");
+			}
+		}
+		
+		return value;
+	}
 	
 }

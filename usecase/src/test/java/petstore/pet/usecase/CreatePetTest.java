@@ -60,6 +60,11 @@ public class CreatePetTest {
 				
 		// setup
 		String categoryId = "catx1";
+		Category category = Category.builder()
+				.id(categoryId)
+				.name("category")
+				.description("a desc")
+				.build();
 		
 		when(categories.get(categoryId))
 			.thenReturn(Optional.empty());
@@ -69,7 +74,7 @@ public class CreatePetTest {
 			.name("a pet")
 			.birth(LocalDate.now())
 			.bio("a bio")
-			.category(new Category(categoryId, null, null))
+			.category(category)
 			.build();
 		
 		// assert
@@ -92,7 +97,11 @@ public class CreatePetTest {
 		String petId = "petx0";
 		String categoryId = "catx1";
 		
-		Category category = new Category(categoryId, "a cat", "cat desc");
+		Category category = Category.builder()
+				.id(categoryId)
+				.name("a cat")
+				.description("cat desc")
+				.build();
 		
 		Pet pet = Pet.builder()
 			.id(petId)

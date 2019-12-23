@@ -1,4 +1,4 @@
-package petstore.pet.usecase.exception;
+package petstore.pet.domain.exception;
 
 /**
  * 
