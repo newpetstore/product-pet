@@ -37,6 +37,9 @@ public class Pet {
 	private final String bio;
 	private final Category category;
 	
+	/**
+	 * @throws PetValidationException When some argument is non-valid
+	 */
 	@Builder(toBuilder = true)
 	Pet(String id, String name, LocalDate birth, String bio, Category category) {
 		this.id = requireNonEmpty(id, "id");
