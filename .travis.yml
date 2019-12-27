@@ -8,7 +8,6 @@ services:
 jdk:
 - openjdk11
 - openjdk12
-- openjdk13
 script:
 - "./gradlew build test integrationTest jacocoTestReport"
 after_success:
