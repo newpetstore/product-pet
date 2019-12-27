@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package petstore.pet.adapter.datastore;
+package petstore.pet.adapter.datastore.inmemory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -26,6 +26,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
+import petstore.pet.adapter.datastore.inmemory.InMemoryPetDatastore;
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.port.PetDatastore;
