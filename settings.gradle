@@ -4,4 +4,5 @@ rootProject.name = 'product-pet'
 include 'domain'
 include 'usecase'
 include 'adapter-datastore:inmemory'
+include 'adapter-datastore:mongodb-spring'
 
