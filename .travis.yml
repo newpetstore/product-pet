@@ -6,6 +6,8 @@ services:
 - docker
 jdk:
 - openjdk11
+- openjdk12
+- openjdk13
 script:
 - "./gradlew build test integrationTest"
 before_cache:
