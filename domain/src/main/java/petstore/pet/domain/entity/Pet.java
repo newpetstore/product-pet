@@ -19,7 +19,9 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import petstore.pet.domain.exception.PetValidationException;
 
 /**
@@ -28,6 +30,8 @@ import petstore.pet.domain.exception.PetValidationException;
  *
  */
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Pet {
 
 	private final String id;

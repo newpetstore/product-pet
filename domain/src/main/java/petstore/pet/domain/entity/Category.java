@@ -18,7 +18,9 @@ package petstore.pet.domain.entity;
 import java.util.Optional;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.ToString;
 import petstore.pet.domain.exception.CategoryValidationException;
 
 /**
@@ -27,6 +29,8 @@ import petstore.pet.domain.exception.CategoryValidationException;
  *
  */
 @Getter
+@ToString
+@EqualsAndHashCode
 public class Category {
 
 	private final String id;
