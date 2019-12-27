@@ -29,7 +29,7 @@ import petstore.pet.usecase.port.PetDatastore;
  * @author fabiojose
  *
  */
-public class PetCreation {
+public class RegisterNewPet {
 	
 	private final PetDatastore pets;
 	private final CategoryDatastore categories;
@@ -40,7 +40,7 @@ public class PetCreation {
 	 * @param categories
 	 * @throws NullPointerException When any argument is <code>null</code>
 	 */
-	public PetCreation(PetDatastore pets, CategoryDatastore categories) {	
+	public RegisterNewPet(PetDatastore pets, CategoryDatastore categories) {	
 		this.pets = requireNonNull(pets);
 		this.categories = requireNonNull(categories);
 	}

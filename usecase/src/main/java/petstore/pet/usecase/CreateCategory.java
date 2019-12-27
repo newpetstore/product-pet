@@ -27,11 +27,11 @@ import petstore.pet.usecase.port.CategoryDatastore;
  * @author fabiojose
  *
  */
-public class CategoryCreation {
+public class CreateCategory {
 	
 	private final CategoryDatastore categories;
 	
-	public CategoryCreation(CategoryDatastore categories) {
+	public CreateCategory(CategoryDatastore categories) {
 		this.categories = Objects.requireNonNull(categories);
 	}
 
