@@ -1,6 +1,7 @@
 package petstore.pet.usecase;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -15,9 +16,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
-import petstore.pet.usecase.exception.PetAlreadyExistsException;
 import petstore.pet.domain.exception.PetValidationException;
+import petstore.pet.usecase.exception.PetAlreadyExistsException;
+import petstore.pet.usecase.model.NewPet;
+import petstore.pet.usecase.model.PetCreated;
 import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.port.IdGenerator;
 import petstore.pet.usecase.port.PetDatastore;
 
 /**
@@ -34,6 +38,9 @@ public class RegisterNewPetTest {
 	@Mock
 	CategoryDatastore categories;
 	
+	@Mock
+	IdGenerator<String> generator;
+	
 	@InjectMocks
 	RegisterNewPet usecase;
 	
@@ -41,7 +48,16 @@ public class RegisterNewPetTest {
 	public void should_throw_on_null_pets_args() {
 		
 		assertThrows(NullPointerException.class, () -> {
-			new RegisterNewPet(pets, null);
+			new RegisterNewPet(null, generator, categories);
+		});
+		
+	}
+	
+	@Test
+	public void should_throw_on_null_id_gen_args() {
+		
+		assertThrows(NullPointerException.class, () -> {
+			new RegisterNewPet(pets, null, categories);
 		});
 		
 	}
@@ -50,7 +66,7 @@ public class RegisterNewPetTest {
 	public void should_throw_on_null_categories_args() {
 		
 		assertThrows(NullPointerException.class, () -> {
-			new RegisterNewPet(null, categories);
+			new RegisterNewPet(pets, generator, null);
 		});
 		
 	}
@@ -60,29 +76,23 @@ public class RegisterNewPetTest {
 				
 		// setup
 		String categoryId = "catx1";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("category")
-				.description("a desc")
-				.build();
 		
 		when(categories.get(categoryId))
 			.thenReturn(Optional.empty());
-
-		Pet pet = Pet.builder()
-			.id("id")
-			.name("a pet")
-			.birth(LocalDate.now())
-			.bio("a bio")
-			.category(category)
-			.build();
+		
+		NewPet newPet = NewPet.builder()
+				.name("a pet")
+				.birthdate(LocalDate.now())
+				.biography("a bio")
+				.idOfCategory(categoryId)
+				.build();
 		
 		// assert
 		PetValidationException e = 
 			assertThrows(PetValidationException.class, () -> {
 				
 				// act
-				usecase.create(pet);
+				usecase.create(newPet);
 				
 			});
 		
@@ -91,10 +101,46 @@ public class RegisterNewPetTest {
 	}
 	
 	@Test
+	public void should_create_the_new_pet() {
+		
+		// setup
+		String categoryId = "catx1";
+		Category category = Category.builder()
+				.id(categoryId)
+				.name("category")
+				.description("a desc")
+				.build();
+		
+		when(categories.get(categoryId))
+			.thenReturn(Optional.of(category));
+		
+		NewPet newPet = NewPet.builder()
+				.name("a pet")
+				.birthdate(LocalDate.now())
+				.biography("a bio")
+				.idOfCategory(categoryId)
+				.build();
+		
+		String petId = "newpet6y";
+		when(generator.nextId())
+			.thenReturn(petId);
+		
+		// act
+		PetCreated actual = usecase.create(newPet);
+		assertNotNull(actual);
+		
+		assertEquals(petId, actual.getId());
+	}
+	
+	@Test
 	public void should_throw_when_id_already_exists() {
 		
 		// setup
-		String petId = "petx0";
+		String petId = "newpet6y";
+		
+		when(generator.nextId())
+			.thenReturn(petId);
+		
 		String categoryId = "catx1";
 		
 		Category category = Category.builder()
@@ -102,6 +148,9 @@ public class RegisterNewPetTest {
 				.name("a cat")
 				.description("cat desc")
 				.build();
+		
+		when(categories.get(categoryId))
+			.thenReturn(Optional.of(category));
 		
 		Pet pet = Pet.builder()
 			.id(petId)
@@ -114,11 +163,18 @@ public class RegisterNewPetTest {
 		when(pets.get(petId))
 			.thenReturn(Optional.of(pet));
 		
+		NewPet newPet = NewPet.builder()
+				.name("a pet")
+				.birthdate(LocalDate.now())
+				.biography("a bio")
+				.idOfCategory(categoryId)
+				.build();
+		
 		// assert
 		assertThrows(PetAlreadyExistsException.class, () -> {
 			
 			// act
-			usecase.create(pet);
+			usecase.create(newPet);
 			
 		});
 		

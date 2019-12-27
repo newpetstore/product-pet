@@ -17,11 +17,18 @@ package petstore.pet.usecase;
 
 import static java.util.Objects.requireNonNull;
 
+import org.mapstruct.factory.Mappers;
+
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
+import petstore.pet.usecase.model.NewPet;
+import petstore.pet.usecase.model.NewPet.NewPetMapper;
+import petstore.pet.usecase.model.PetCreated;
+import petstore.pet.usecase.model.PetCreated.PetCreatedMapper;
 import petstore.pet.domain.exception.PetValidationException;
 import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.port.IdGenerator;
 import petstore.pet.usecase.port.PetDatastore;
 
 /**
@@ -32,31 +39,49 @@ import petstore.pet.usecase.port.PetDatastore;
 public class RegisterNewPet {
 	
 	private final PetDatastore pets;
+	
 	private final CategoryDatastore categories;
+	
+	private final NewPetMapper mapper;
 	
 	/**
 	 * 
 	 * @param pets
+	 * @param petIdGenerator
 	 * @param categories
 	 * @throws NullPointerException When any argument is <code>null</code>
 	 */
-	public RegisterNewPet(PetDatastore pets, CategoryDatastore categories) {	
+	public RegisterNewPet(PetDatastore pets, IdGenerator<String> petIdGenerator,
+			CategoryDatastore categories) {	
 		this.pets = requireNonNull(pets);
 		this.categories = requireNonNull(categories);
+		
+		this.mapper = Mappers.getMapper(NewPetMapper.class);
+		this.mapper.setGenerator(requireNonNull(petIdGenerator));
 	}
 	
 	/**
 	 * 
-	 * @param pet An instance to create
+	 * @param newPet An instance to create
 	 * @throws PetAlreadyExistsException When the same entity already exists
 	 * inside domain
 	 * @throws PetValidationException When the entity instance is invalid
-	 * @throws NullPointerException When pet argument is <code>null</code>
+	 * @throws NullPointerException When the argument is <code>null</code>
 	 */
-	public void create(Pet pet) {
+	public PetCreated create(NewPet newPet) {
 		
 		// Validate
-		Pet _pet = requireNonNull(pet);
+		NewPet _newPet = requireNonNull(newPet);
+		
+		// Get category by id
+		Category category = 
+			categories.get(_newPet.getIdOfCategory())
+				.orElseThrow(() -> 
+					new PetValidationException("category.not.found"));
+		
+		// Mapping to domain entity
+		// - identity creation: see NewPetMapper
+		Pet _pet = mapper.map(_newPet, category);
 		
 		// Already exists?
 		pets.get(_pet.getId())
@@ -64,23 +89,11 @@ public class RegisterNewPet {
 				throw new PetAlreadyExistsException(exists.getId());
 			});
 		
-		// Get category by id
-		Category category = 
-			categories.get(_pet.getCategory().getId())
-				.orElseThrow(() -> 
-					new PetValidationException("category.not.found"));
-		
-		// Read category from the data store
-		Pet _tosave = _pet
-			.toBuilder()
-				.category(category)
-				.build();
-		
 		// Create using the data store
-		pets.put(_tosave);
+		pets.put(_pet);
 		
 		//TODO Fire event about pet creation?
 		
-	}
-	
+		return PetCreatedMapper.INSTANCE.map(_pet);
+	}	
 }
