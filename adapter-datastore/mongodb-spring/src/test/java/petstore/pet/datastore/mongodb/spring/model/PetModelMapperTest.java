@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Tag;
@@ -31,10 +30,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import petstore.pet.datastore.mongodb.spring.MongoCategoryDatastore;
-import petstore.pet.datastore.mongodb.spring.model.PetModel;
-import petstore.pet.datastore.mongodb.spring.model.PetModelMapper;
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
+import petstore.pet.domain.exception.PetValidationException;
 
 /**
  * 
@@ -120,7 +118,7 @@ public class PetModelMapperTest {
 		PetModelMapper mapper = Mappers.getMapper(PetModelMapper.class);
 		mapper.categories = categories;
 		
-		assertThrows(NoSuchElementException.class, () ->
+		assertThrows(PetValidationException.class, () ->
 			mapper.map(model));
 	}
 }
