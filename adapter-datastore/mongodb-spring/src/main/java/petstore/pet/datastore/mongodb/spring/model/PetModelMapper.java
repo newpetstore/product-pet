@@ -15,16 +15,16 @@
  */
 package petstore.pet.datastore.mongodb.spring.model;
 
-import java.util.NoSuchElementException;
-
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import petstore.pet.datastore.mongodb.spring.MongoCategoryDatastore;
 import petstore.pet.domain.entity.Pet;
+import petstore.pet.domain.exception.PetValidationException;
 
 /**
  * 
@@ -45,13 +45,16 @@ public abstract class PetModelMapper {
 	/**
 	 * 
 	 * @param model
-	 * @throws NoSuchElementException When categoryId is no present in the 
+	 * @throws PetValidationException When categoryId is no present in the 
 	 * data store
 	 */
-	@Mapping(source = "birthdate", target = "birth")
+	@Mapping(
+		source = "birthdate", target = "birth",
+		nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
+	)
 	@Mapping(source = "biography", target = "bio")
 	@Mapping(
-		expression =  "java(categories.get(model.getCategoryId()).get())",
+		expression =  "java(categories.get(model.getCategoryId()).orElse(null))",
 		target = "category"
 	)
 	public abstract Pet map(PetModel model);
@@ -59,7 +62,10 @@ public abstract class PetModelMapper {
 	@Mappings({
 		@Mapping(source = "id", target = "id"),
 		@Mapping(source = "name", target = "name"),
-		@Mapping(source = "birth", target = "birthdate"),
+		@Mapping(
+			source = "birth", target = "birthdate",
+			nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
+		),
 		@Mapping(source = "bio", target = "biography"),
 		@Mapping(source = "category.id", target = "categoryId")
 	})
