@@ -3,9 +3,9 @@ allprojects {
     repositories {
         jcenter()
         maven {
-	    url 'https://dl.bintray.com/newpetstore/petstore'
+	        url 'https://dl.bintray.com/newpetstore/petstore'
+	    }
 	}
-    }
 }
 
 subprojects {

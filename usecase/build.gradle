@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'java-library'
     id 'eclipse'
+    id 'jacoco'
 }
 
 dependencies {
@@ -26,3 +27,11 @@ test {
     useJUnitPlatform()
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport

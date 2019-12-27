@@ -18,6 +18,7 @@ plugins {
     id 'java'
     id 'java-library'
     id 'eclipse'
+    id 'jacoco'
 }
 
 dependencies {
@@ -64,3 +65,12 @@ task integrationTest(type: Test){
 		includeTags 'integration'
 	}
 }
+
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
+check.dependsOn jacocoTestReport
