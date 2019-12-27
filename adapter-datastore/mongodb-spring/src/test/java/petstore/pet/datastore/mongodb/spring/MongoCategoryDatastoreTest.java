@@ -60,7 +60,7 @@ public class MongoCategoryDatastoreTest {
 	public void should_throw_when_id_is_null_on_delete() {
 		
 		assertThrows(IllegalArgumentException.class, () -> 
-				datastore.get(null));
+				datastore.del(null));
 		
 	}
 	
