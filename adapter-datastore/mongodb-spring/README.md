@@ -3,5 +3,9 @@
 ## Testing
 
 - unit: `gradle clean test`
-- integrated: `gradle clean integrationTest`
+
+- integration: `gradle clean integrationTest`
+
+> For integration test Docker must be available
+
  
