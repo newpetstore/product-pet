@@ -34,12 +34,15 @@ public class MongoPetDatastore implements PetDatastore {
 	
 	@Autowired
 	PetRepository repository;
+	
+	@Autowired
+	PetModelMapper mapper;
 
 	@Override
 	public void put(Pet pet) {
 		
 		Optional.ofNullable(pet)
-			.map(PetModelMapper.INSTANCE::map)
+			.map(mapper::map)
 			.ifPresent(repository::save);
 		
 	}
@@ -49,13 +52,13 @@ public class MongoPetDatastore implements PetDatastore {
 		
 		return 
 			repository.findById(id)
-				.map(PetModelMapper.INSTANCE::map);
+				.map(mapper::map);
 		
 	}
 
 	@Override
 	public void del(String id) {
-		
+
 		repository.deleteById(id);
 		
 	}
