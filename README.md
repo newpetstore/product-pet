@@ -2,11 +2,15 @@
 
 This is the microsservice for Pet, a part of Product Management.
 
-https://www.oracle.com/technetwork/articles/javaee/petstore-137013.html
+> [Java Pet Store](https://www.oracle.com/technetwork/articles/javaee/petstore-137013.html)
 
 ## We are using
 
-- java 11
-- gradle
-- lombok
+- [clean architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [java](https://www.oracle.com/technetwork/java/javase) 11
+- [gradle](https://gradle.org) 5+
+- [lombok](https://projectlombok.org)
+- [mapstruct](https://mapstruct.org)
+- [docker](https://www.docker.com) 19+
+- [testcontainers](https://www.testcontainers.org)
 
