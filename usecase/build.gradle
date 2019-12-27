@@ -9,7 +9,7 @@ dependencies {
     implementation project(':domain')
     
     // New Pet Store Dependencies
-    implementation 'petstore:common-utils:1.0.5'
+    //implementation 'petstore:common-utils:1.0.5'
     
     compile 'org.apache.commons:commons-lang3:3.9'
 

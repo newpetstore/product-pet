@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     // New Pet Store Dependencies
-    implementation 'petstore:common-utils:1.0.5'
+    //implementation 'petstore:common-utils:1.0.5'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
