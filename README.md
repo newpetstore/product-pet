@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/newpetstore/product-pet.svg?branch=master)](https://travis-ci.org/newpetstore/product-pet)
+[![codecov](https://codecov.io/gh/newpetstore/product-pet/branch/master/graph/badge.svg)](https://codecov.io/gh/newpetstore/product-pet)
 
 # Pet Bounded Context
 
@@ -15,4 +16,3 @@ This is the microsservice for Pet, a part of Product Management.
 - [mapstruct](https://mapstruct.org)
 - [docker](https://www.docker.com) 19+
 - [testcontainers](https://www.testcontainers.org)
-
