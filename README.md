@@ -3,7 +3,7 @@
 
 # Pet Bounded Context
 
-This is the microsservice for Pet, a part of Product Management.
+This is the microservice for Pet, a part of Product Management.
 
 > [Java Pet Store](https://www.oracle.com/technetwork/articles/javaee/petstore-137013.html)
 
