@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/newpetstore/product-pet.svg?branch=master)](https://travis-ci.org/newpetstore/product-pet)
+
 # Pet Bounded Context
 
 This is the microsservice for Pet, a part of Product Management.
