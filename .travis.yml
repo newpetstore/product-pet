@@ -1,0 +1,51 @@
+language: java
+install: true
+os: linux
+dist: trusty
+services:
+- docker
+jdk:
+- openjdk11
+script:
+- "./gradlew build test integrationTest"
+before_cache:
+- rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+- rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+cache:
+  directories:
+  - "$HOME/.gradle/caches/"
+  - "$HOME/.gradle/wrapper/"
+jobs:
+  include:
+  - stage: Publish to Github Packages
+    jdk: openjdk11
+    script: skip
+    deploy:
+      provider: script
+      script: "./gradlew clean build publish"
+      skip_cleanup: true
+      on:
+        tags: true
+  - stage: Publish to Bintray
+    jdk: openjdk11
+    script: skip
+    deploy:
+      provider: script
+      script: "./gradlew clean build bintrayUpload "
+      skip_cleanup: true
+      on:
+        tags: true
+  - stage: Github Release
+    jdk: openjdk11
+    script: skip
+    deploy:
+      provider: releases
+      api_key:
+        secure: hsORGfo5cZd1g8x/iRGB6bCxaPMHY+lH+USH0D362nNHb9LRa1EjaGRTWu3Z+4AdI2btbfTxMouWI6peTyLpvKdAoOope0bs4yxA9tM48OwYDMxTsHCaC2I7wAhrib8fFpq6KbfhjBjXY9WUxkmafqjMqcZIjRyuWMz6xz19BVQRJNhbOo3U2OSmjoGaNUpwq1xX0TRnarKlO43y/YBY1gs6z7Ag3OxQCYX4dpetBK+0u5r+shMdgPgBBsE5yUDM+BQzzcvAaqLW0YQA3uzI6c94szKZgPLQZ3+GkBh9pRT5XJMCZ1K+is0UqRHH/Nv4gYP3FBPvF8Fibbkk+FUCYrYOqg6UnwWASbdne9wctjlWCrfA+yzjJGvdeX/6NQoSD2OzjaWAwMf2Ari1wOSndWbsLhYou2hrKfycwcDIFjIur6TjiaRFwWcuLlurYGhNzIZ4I4nLJ3+JRAjcHUHa8NEmyCEL1RylWA98KH5+qTpE2O4POS5+YbsqqHzFvwzB2IPjmgKkMWSyQb8eFpmfYjzGiDohKCO+lvdegHpl77mjFJKJgU92r/zLznXVeM48kgA0NmBM+1HbndwQLFTkxdtxDef4iK1JhEBY4CQtDheWNMIze9yoaVkcOznR16VN9bwHCrt5Zvi0m1o16J6627ljsZGZI0r1Sj4PWrDlfhE=
+      skip_cleanup: true
+      on:
+        tags: true
+env:
+  global:
+  - secure: fdFihl2mkmHtimpqYH4LULXE9RZMRdbG0Li/97dKnqarOT7+ggCPjsHGN7KeLvrW43e3RFPHpLMk4SbZ97BoWIzq1acenlBwefQgHvGbEzd3Je0E6QFXWFpK1c0pMnGrm1rSKtbAcvDrYabqXuRACSN66SjCERH6p8AWN3MaFLsehF5B3FmzeEBsIEjq57pZRNoKklmJK6hK4eygkNeuuLmJzKuqk6XJ7P1KNY7/AaanNX/J20wpSto+4cKmv2HI9UkCPmjWIjenwH50oozmOeOZ/pC5tJ2c+KPaDDMFg9YEBA8HLOXbrl92ozb1vbooYIQ9hP0MLE0V+7A8FJ2I4DdNRX1swy1IN0m0Btf33Bm6Og4y8faZ/F0lBX7Xab5DbIWruzp0iHWvFgS+t+LGeWEe5xc8JMk1Q9Gb+QI7lK74jtFCKuR7NtsS1jfT8GDUfK9Ymk0hxMBUJClP7HuVEztF0S3v8nWCeEhqNVXlxlM6OzasuUh8b7/rhjP/SiRC7MIkD0ICrjqn77dPoe1EO9S8eO6LI41L+T+ChcRhfRqvlLpro0S4b9wH8HZPQQnf7r5jxY5uTbcTgAlgfctWtKAk3y/Wqu42c7EQjCJuZ/Ol68W3R2lg1luCcHGEO9lCZccsyOzUTH6ywzT4FfnYIYxvg0bBWobIkEA6iBQU3HU=
+  - secure: URasaNLZ9mDtuhEIm1Y3lW0xustM+RmvKwtcm+fzvKBsUEMkEN8Q3R5VIRinT0nEKV3igBOCapBXXCFI/GJcqeWc82rwn031Fe7NF3HB9xPFcVAbezh0/mCydB65V3qdM5lyJR7qVO+LOjzfvd6N80bTitCiG6SLUxkV9l6hP66Qr5YdKdb9LNuO7vCSQGvKn+fcDw/SWvLSXX3NV/WaO8lVnlnZDcGqd/qVa7EAJcuNVcq4xu+VcDqyZ1t1f49U7c0LAiIrBQ9NctrhJdei5HOGHG9/wUaKJ8wEu2W0ORUNqYkqcIIzmSCnESiFO3LfqeKJLa7BGYh9jp9eehImDornQo1gFUS0U/TheL7Qym2QMpBdq+9ycfWN5UdmD80kqR7J1c8gs0PUvpdzFd0nHv0ESxPY3bj4xTjk8KgbiVOno6waDqyeRPdoAfSGzi1SvETPlFvGDTkkKNMi83bfv5WA709ZivvDDFEcPE1ROhrnuXqSIxEr0yD8Xi1TKnWtqgQYUhrV8GLoFUtT2JpihXKTJh3aibFM4DswB5UKGrHwPFOk+4GVNpsIdJK16sZTSTyIXst682Z66d8VL0nuwUrK0gZzKjqUCCCVUu377pcPS3o/4K1kJAO0H7s+PNzXYseIJzjAGLK0UNu0ZcL3Ad/wRIts006+JF8KjR6E7Zk=
