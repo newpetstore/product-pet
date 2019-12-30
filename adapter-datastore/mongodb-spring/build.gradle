@@ -36,7 +36,9 @@ dependencies {
     testImplementation 'org.testcontainers:testcontainers:1.12.4'
     
     testImplementation 'org.springframework.boot:spring-boot-starter:2.2.1.RELEASE'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test:2.2.1.RELEASE'
+    testImplementation('org.springframework.boot:spring-boot-starter-test:2.2.1.RELEASE'){
+        exclude group: 'junit', module: 'junit'
+    }
     testImplementation 'org.springframework.cloud:spring-cloud-starter:2.2.1.RELEASE'
     
     testImplementation 'com.playtika.testcontainers:embedded-mongodb:1.36'
