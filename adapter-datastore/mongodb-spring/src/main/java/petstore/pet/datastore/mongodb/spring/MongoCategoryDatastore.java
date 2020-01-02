@@ -18,7 +18,7 @@ package petstore.pet.datastore.mongodb.spring;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import petstore.pet.datastore.mongodb.spring.model.CategoryModelMapper;
 import petstore.pet.domain.entity.Category;
@@ -29,7 +29,7 @@ import petstore.pet.usecase.port.CategoryDatastore;
  * @author fabiojose
  *
  */
-@Repository
+@Component
 public class MongoCategoryDatastore implements CategoryDatastore {
 	
 	@Autowired
