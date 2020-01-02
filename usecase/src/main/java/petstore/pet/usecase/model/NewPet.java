@@ -28,7 +28,7 @@ import lombok.Getter;
 import lombok.ToString;
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
-import petstore.pet.usecase.port.IdGenerator;
+import petstore.pet.usecase.port.PetIdGenerator;
 
 /**
  * 
@@ -78,12 +78,12 @@ public class NewPet {
 	@Mapper
 	public static abstract class NewPetMapper {
 		
-		protected IdGenerator<String> generator;
+		protected PetIdGenerator generator;
 		
 		/**
 		 * @throws NullPointerException When argument is {@code null}
 		 */
-		public void setGenerator(IdGenerator<String> generator) {
+		public void setGenerator(PetIdGenerator generator) {
 			this.generator = Objects.requireNonNull(generator);
 		}
 

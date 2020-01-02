@@ -25,7 +25,7 @@ import org.mapstruct.factory.Mappers;
 import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.model.NewPet.NewPetMapper;
-import petstore.pet.usecase.port.IdGenerator;
+import petstore.pet.usecase.port.PetIdGenerator;
 
 /**
  * 
@@ -53,7 +53,7 @@ public class NewPetMapperTest {
 		
 		final String petId = "petx99";
 		
-		IdGenerator<String> generator = new IdGenerator<String>() {
+		PetIdGenerator generator = new PetIdGenerator() {
 			public String nextId() {
 				return petId;
 			}
@@ -87,7 +87,7 @@ public class NewPetMapperTest {
 		
 		final String petId = "petx99";
 		
-		IdGenerator<String> generator = new IdGenerator<String>() {
+		PetIdGenerator generator = new PetIdGenerator() {
 			public String nextId() {
 				return petId;
 			}
@@ -120,7 +120,7 @@ public class NewPetMapperTest {
 		
 		final String petId = "petx99";
 		
-		IdGenerator<String> generator = new IdGenerator<String>() {
+		PetIdGenerator generator = new PetIdGenerator() {
 			public String nextId() {
 				return petId;
 			}
@@ -153,7 +153,7 @@ public class NewPetMapperTest {
 		
 		final String petId = "petx99";
 		
-		IdGenerator<String> generator = new IdGenerator<String>() {
+		PetIdGenerator generator = new PetIdGenerator() {
 			public String nextId() {
 				return petId;
 			}
@@ -185,7 +185,7 @@ public class NewPetMapperTest {
 		
 		final String petId = "petx99";
 		
-		IdGenerator<String> generator = new IdGenerator<String>() {
+		PetIdGenerator generator = new PetIdGenerator() {
 			public String nextId() {
 				return petId;
 			}
