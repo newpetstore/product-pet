@@ -22,9 +22,9 @@ import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import petstore.pet.datastore.mongodb.spring.MongoCategoryDatastore;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.domain.exception.PetValidationException;
+import petstore.pet.usecase.port.CategoryDatastore;
 
 /**
  * 
@@ -40,7 +40,7 @@ public abstract class PetModelMapper {
 			Mappers.getMapper(PetModelMapper.class);
 	
 	@Autowired
-	protected MongoCategoryDatastore categories;
+	protected CategoryDatastore categories;
 	
 	/**
 	 * 
