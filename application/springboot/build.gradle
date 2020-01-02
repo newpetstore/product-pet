@@ -62,6 +62,10 @@ task integrationTest(type: Test){
 	useJUnitPlatform(){
 		includeTags 'integration'
 	}
+	
+	jacoco {
+        destinationFile = file("$buildDir/jacoco/integrationTest.exec")
+    }
 }
 
 jacocoTestReport {
