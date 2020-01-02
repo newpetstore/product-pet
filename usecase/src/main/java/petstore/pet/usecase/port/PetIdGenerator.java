@@ -19,16 +19,14 @@ package petstore.pet.usecase.port;
  * Identity generator
  * 
  * @author fabiojose
- *
- * @param <ID> Type of identification
  */
-public interface IdGenerator<ID> {
+public interface PetIdGenerator {
 
 	/**
 	 * Produces an unique identification
 	 * 
 	 * @return Unique identification
 	 */
-	ID nextId();
+	String nextId();
 	
 }
