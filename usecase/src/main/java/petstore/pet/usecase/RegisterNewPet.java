@@ -28,7 +28,7 @@ import petstore.pet.usecase.model.PetCreated;
 import petstore.pet.usecase.model.PetCreated.PetCreatedMapper;
 import petstore.pet.domain.exception.PetValidationException;
 import petstore.pet.usecase.port.CategoryDatastore;
-import petstore.pet.usecase.port.IdGenerator;
+import petstore.pet.usecase.port.PetIdGenerator;
 import petstore.pet.usecase.port.PetDatastore;
 
 /**
@@ -51,7 +51,7 @@ public class RegisterNewPet {
 	 * @param categories
 	 * @throws NullPointerException When any argument is <code>null</code>
 	 */
-	public RegisterNewPet(PetDatastore pets, IdGenerator<String> petIdGenerator,
+	public RegisterNewPet(PetDatastore pets, PetIdGenerator petIdGenerator,
 			CategoryDatastore categories) {	
 		this.pets = requireNonNull(pets);
 		this.categories = requireNonNull(categories);
