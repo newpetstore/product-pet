@@ -27,7 +27,6 @@ import petstore.pet.adapter.model.PetRequestMapper;
 import petstore.pet.adapter.model.PetResponse;
 import petstore.pet.adapter.model.PetResponseMapper;
 import petstore.pet.usecase.RegisterNewPet;
-import petstore.pet.usecase.model.NewPet;
 
 /**
  * 
@@ -53,14 +52,11 @@ public class PetRegisterController {
 	 * @throws NullPointerException When {@code req} argument is null 
 	 */
 	public CompletableFuture<PetResponse> register(Supplier<PetRequest> req) {
+		Objects.requireNonNull(req);
 		
-		final NewPet newPet = 
-				PetRequestMapper.INSTANCE.map(req.get());
-		
-		Objects.requireNonNull(newPet);
-		
-		return supplyAsync(() -> register.create(newPet))
-					.thenApply(PetResponseMapper.INSTANCE::map);
+		return supplyAsync(() -> PetRequestMapper.INSTANCE.map(req.get()))
+				.thenApply(newPet -> register.create(newPet))
+				.thenApply(PetResponseMapper.INSTANCE::map);
 	}
 	
 }
