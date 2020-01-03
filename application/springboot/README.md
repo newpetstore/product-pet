@@ -20,7 +20,7 @@ Then, start the application:
 
 ```bash
 java -jar build/libs/springboot-1.0.0.jar \
-     --spring.data.mongodb.uri='mongodb://localhost:27017'
+     --spring.data.mongodb.uri='mongodb://localhost:27017/test'
 ```
 
 ## Checking the health
