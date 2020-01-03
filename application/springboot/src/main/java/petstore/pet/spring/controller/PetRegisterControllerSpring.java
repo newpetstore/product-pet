@@ -18,9 +18,12 @@ package petstore.pet.spring.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import petstore.pet.adapter.PetRegisterController;
 import petstore.pet.adapter.model.PetRequest;
@@ -43,12 +46,17 @@ public class PetRegisterControllerSpring {
 		consumes = "application/json",
 		produces = "application/json"
 	)
-	public Mono<PetResponse> post(
+	public Mono<ResponseEntity<PetResponse>> post(
 			@Valid
 			@RequestBody(required = true)
 			PetRequest req) {
 		
-		return Mono.fromFuture(adapter.register(() -> req));
+		return Mono
+				.fromFuture(adapter.register(() -> req))
+				.onErrorMap(e -> 
+					new ResponseStatusException(HttpStatus.BAD_REQUEST,
+							e.getMessage(), e))
+				.map(body -> ResponseEntity.ok(body));
 	}
 	
 }
