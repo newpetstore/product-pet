@@ -16,7 +16,9 @@
 package petstore.pet.spring;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import petstore.pet.adapter.PetRegisterController;
 import petstore.pet.usecase.RegisterNewPet;
@@ -29,6 +31,16 @@ import petstore.pet.usecase.port.PetIdGenerator;
  * @author fabiojose
  *
  */
+
+//To enable Spring Boot Application resources
+@ComponentScan()
+
+//To enable the Data Store
+@ComponentScan("petstore.pet.datastore.mongodb.spring")
+
+//To enable Mongo DB Repository
+@EnableMongoRepositories("petstore.pet.datastore.mongodb.spring")
+
 @Configuration
 public class Config {
 

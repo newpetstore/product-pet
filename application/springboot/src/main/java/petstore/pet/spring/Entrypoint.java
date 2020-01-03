@@ -17,24 +17,12 @@ package petstore.pet.spring;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 /**
  * 
  * @author fabiojose
  *
  */
-
-//To enable Spring Boot Application resources
-@ComponentScan()
-
-// To enable the Data Store
-@ComponentScan("petstore.pet.datastore.mongodb.spring")
-
-// To enable Mongo DB Repository
-@EnableMongoRepositories("petstore.pet.datastore.mongodb.spring")
-
 @SpringBootApplication
 public class Entrypoint {
 
