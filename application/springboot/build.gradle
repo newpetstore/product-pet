@@ -19,6 +19,8 @@ plugins {
     id 'java-library'
     id 'eclipse'
     id 'jacoco'
+    id 'org.springframework.boot' version '2.2.1.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
 }
 
 dependencies {
@@ -28,6 +30,7 @@ dependencies {
     compile project(':adapter-datastore:mongodb-spring')
     
     implementation 'org.springframework.boot:spring-boot-starter-webflux:2.2.1.RELEASE'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator:2.2.1.RELEASE'
     
     testImplementation project(':domain')
 
@@ -76,3 +79,7 @@ jacocoTestReport {
 }
 
 check.dependsOn jacocoTestReport
+
+bootJar {
+	mainClassName = 'petstore.pet.spring.Entrypoint'
+}
