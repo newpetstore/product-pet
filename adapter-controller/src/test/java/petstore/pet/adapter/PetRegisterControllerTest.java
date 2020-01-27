@@ -69,14 +69,6 @@ public class PetRegisterControllerTest {
 	}
 	
 	@Test
-	public void should_throw_when_supplier_results_null() {
-	
-		assertThrows(NullPointerException.class, () ->
-			controller.register(() -> null));
-		
-	}
-	
-	@Test
 	public void should_register_new_pets() throws Exception {
 		
 		// setup
