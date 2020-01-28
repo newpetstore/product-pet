@@ -3,7 +3,8 @@
 ## Running
 
 ```bash
-java -jar build/libs/springboot-1.0.0.jar --spring.data.mongodb.uri=<MONGO DB URI>
+java -jar build/libs/springboot-1.0.0.jar \
+     --spring.data.mongodb.uri=<MONGO DB URI>
 ```
 
 > Get a free mongo instance [here](https://cloud.mongodb.com)
@@ -16,11 +17,40 @@ docker run -p 27017:27017 \
        mongo:3.4-xenial
 ```
 
-Then, start the application:
+Then, run the application:
 
 ```bash
 java -jar build/libs/springboot-1.0.0.jar \
      --spring.data.mongodb.uri='mongodb://localhost:27017/test'
+```
+
+### Using Docker
+
+**Build**
+
+```bash
+docker build . -t pet:1.0.0
+```
+
+Or use the [docker-build.sh](./docker-build.sh) script.
+
+```bash
+./docker-build.sh '1.0.0'
+```
+
+**Run**
+
+```bash
+docker run -p 8080:8080 \
+       -i --rm \
+       -e MONGODB_URI=<MONGO DB URI> \
+       pet:1.0.0
+```
+
+Or use the [docker-run.sh](./docker-run.sh) script.
+
+```bash
+./docker-run.sh '1.0.0'
 ```
 
 ## Checking the health
