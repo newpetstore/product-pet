@@ -17,7 +17,6 @@ package petstore.pet.adapter.datastore.inmemory;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 
 import petstore.pet.domain.entity.Pet;
