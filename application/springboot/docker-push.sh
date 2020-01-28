@@ -1,4 +1,4 @@
 #!/bin/bash
-echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin newpetstore-docker-docker.bintray.io
+echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin $DOCKER_REGISTRY
 
-docker push newpetstore-docker-docker.bintray.io/docker/pet:$1
+docker push $DOCKER_REGISTRY/pet:$1

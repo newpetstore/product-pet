@@ -8,6 +8,8 @@ services:
 jdk:
 - openjdk11
 - openjdk12
+env:
+- DOCKER_REGISTRY=newpetstore-docker-docker.bintray.io
 script:
 - "./gradlew build test integrationTest jacocoTestReport"
 after_success:
