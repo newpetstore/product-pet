@@ -43,7 +43,7 @@ Or use the [docker-build.sh](./docker-build.sh) script.
 ```bash
 docker run -p 8080:8080 \
        -i --rm \
-       -e MONGODB_URI=<MONGO DB URI> \
+       -e SPRING_DATA_MONGODB_URI='<MONGO DB URI>' \
        pet:1.0.0
 ```
 
