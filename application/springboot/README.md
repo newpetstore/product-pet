@@ -3,8 +3,8 @@
 ## Running
 
 ```bash
-java -jar build/libs/springboot-1.0.0.jar \
-     --spring.data.mongodb.uri=<MONGO DB URI>
+SPRING_DATA_MONGODB_URI='<MONGO DB URI>' \
+java -jar build/libs/springboot-1.0.0.jar
 ```
 
 > Get a free mongo instance [here](https://cloud.mongodb.com)
@@ -20,8 +20,8 @@ docker run -p 27017:27017 \
 Then, run the application:
 
 ```bash
-java -jar build/libs/springboot-1.0.0.jar \
-     --spring.data.mongodb.uri='mongodb://localhost:27017/test'
+SPRING_DATA_MONGODB_URI='mongodb://localhost:27017/test' \
+java -jar build/libs/springboot-1.0.0.jar
 ```
 
 ### Using Docker
