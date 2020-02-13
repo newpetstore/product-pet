@@ -28,24 +28,6 @@ jobs:
     - application/springboot/docker-build.sh $TRAVIS_TAG
     - application/springboot/docker-push.sh $TRAVIS_TAG
     if: tag IS present
-  - stage: Publish to Github Packages
-    jdk: openjdk11
-    script: skip
-    deploy:
-      provider: script
-      script: "./gradlew clean build publish"
-      skip_cleanup: true
-      on:
-        tags: true
-  - stage: Publish to Bintray
-    jdk: openjdk11
-    script: skip
-    deploy:
-      provider: script
-      script: "./gradlew clean build bintrayUpload"
-      skip_cleanup: true
-      on:
-        tags: true
   - stage: Github Release
     jdk: openjdk11
     script: skip
