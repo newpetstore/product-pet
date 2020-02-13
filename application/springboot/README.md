@@ -67,6 +67,27 @@ Must respond:
 }
 ```
 
+## Deployment to Kubernetes
+
+To install in kubernetes you may use our [helm chart](./k8s-helm).
+
+But, you must to create the `pets-dv` namespace.
+
+- Install
+```bash
+helm install --namespace='pets-dv' \
+     --set configmap.SPRING_DATA_MONGODB_URI='<MONGO DB URI>' \
+     pets k8s-helm/ 
+```
+
+- To uninstall
+```bash
+helm uninstall --namespace='pets-dv' pets
+```
+
+> The command above will use the 
+[image here](https://bintray.com/newpetstore/docker/pet).
+
 ## To change the logging configuration
 
 We are using logback and you can change the log level and pattert using
