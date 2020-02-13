@@ -66,3 +66,19 @@ Must respond:
     "status": "UP"
 }
 ```
+
+## To change the logging configuration
+
+We are using logback and you can change the log level and pattert using
+environment variables.
+
+- `APP_LOG_LEVEL`: set the global log level. Default is `INFO`
+
+- `APP_LOG_PATTERN`: set the log message pattern. Default is
+`%d{ISO8601} %-5level [%t] %c{1.}: %msg%n%throwable`
+
+- `APP_LOG_LOGGERS`: to configure loggers. No default value.
+```bash
+# logger_1:LEVEL,logger_2:LEVEL,...
+APP_LOG_LOGGERS='io.netty:ERROR,org.springframework:ERROR'
+```
