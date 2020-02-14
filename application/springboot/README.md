@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/newpetstore/docker/pet/images/download.svg) ](https://bintray.com/newpetstore/docker/pet/_latestVersion)
+
 # Spring Boot Application for Pet Bounded Context
 
 ## Running
