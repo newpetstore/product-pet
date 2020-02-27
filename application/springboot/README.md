@@ -6,6 +6,7 @@
 
 ```bash
 SPRING_DATA_MONGODB_URI='<MONGO DB URI>' \
+CATEGORIES_HTTP_ENDPOINT_URL='<CATEGORIES HTTP URL>' \
 java -jar build/libs/springboot-1.0.0.jar
 ```
 
@@ -23,6 +24,7 @@ Then, run the application:
 
 ```bash
 SPRING_DATA_MONGODB_URI='mongodb://localhost:27017/test' \
+CATEGORIES_HTTP_ENDPOINT_URL='http://localhost:8081' \
 java -jar build/libs/springboot-1.0.0.jar
 ```
 
@@ -46,6 +48,7 @@ Or use the [docker-build.sh](./docker-build.sh) script.
 docker run -p 8080:8080 \
        -i --rm \
        -e SPRING_DATA_MONGODB_URI='<MONGO DB URI>' \
+       -e CATEGORIES_HTTP_ENDPOINT_URL='<CATEGORIES HTTP URL>' \
        pet:1.0.0
 ```
 
@@ -79,7 +82,13 @@ But, you must to create the `pets-dv` namespace.
 ```bash
 helm install --namespace='pets-dv' \
      --set configmap.SPRING_DATA_MONGODB_URI='<MONGO DB URI>' \
-     pets k8s-helm/ 
+     --set configmap.CATEGORIES_HTTP_ENDPOINT_URL='<CATEGORIES HTTP URL>' \
+     pets k8s-helm/
+```
+
+```bash
+# Example for configmap.SPRING_DATA_MONGODB_URI, would be:
+'mongodb://root:WP5BXFrJjP@mongodb.pets-dv.svc.cluster.local:27017/pets?authSource=admin'
 ```
 
 - To uninstall
@@ -87,8 +96,40 @@ helm install --namespace='pets-dv' \
 helm uninstall --namespace='pets-dv' pets
 ```
 
-> The command above will use the 
+> The command above will use the
 [image here](https://bintray.com/newpetstore/docker/pet).
+
+### Expose using a public DNS
+
+> If you are using minikute, ignore this step
+
+TODO
+
+### Testing
+
+We are using Locust to load test our microservice:
+
+```bash
+docker run -p 8089:8089 \
+       -e LOCUST_LOCUSTFILE_PATH='/locust-tasks/locustfile.py' \
+       -e LOCUST_TARGET_HOST='<PUBLIC URL>' \
+       --mount src=$(pwd)/test,target=/locust-tasks,type=bind \
+       --name locust 'peterevans/locust:1.6'
+```
+
+Open http://localhost:8089 at you favorite browser.
+
+## Consume the API
+
+- `POST /pets`
+```json
+{
+  "name"      : "",
+  "bio"       : "",
+  "birthdate" : "2020-01-30",
+  "category"  : ""
+}
+```
 
 ## To change the logging configuration
 
