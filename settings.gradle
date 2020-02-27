@@ -20,6 +20,7 @@ include 'domain'
 include 'usecase'
 include 'adapter-datastore:inmemory'
 include 'adapter-datastore:mongodb-spring'
+include 'adapter-http:category-spring'
 include 'adapter-controller'
 include 'application:springboot'
 
