@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.model.NewPet.NewPetMapper;
 import petstore.pet.usecase.port.PetIdGenerator;
@@ -38,11 +37,10 @@ public class NewPetMapperTest {
 	public void should_map_the_id() {
 		
 		String categoryId = "catx99";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("Cat x99")
-				.description("Cat x99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("Cat x99");
+		category.setDescription("Cat x99 Desc");
 		
 		NewPet newPet = NewPet.builder()
 				.name("New Pet 1")
@@ -62,7 +60,7 @@ public class NewPetMapperTest {
 		NewPetMapper mapper = Mappers.getMapper(NewPetMapper.class);
 		mapper.setGenerator(generator);
 		
-		Pet actual = mapper.map(newPet, category);
+		Pet actual = mapper.map(newPet);
 		
 		assertEquals(petId, actual.getId());
 	}
@@ -71,11 +69,10 @@ public class NewPetMapperTest {
 	public void should_map_the_name() {
 		
 		String categoryId = "catx99";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("Cat x99")
-				.description("Cat x99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("Cat x99");
+		category.setDescription("Cat x99 Desc");
 		
 		String petName = "New Pet";
 		NewPet newPet = NewPet.builder()
@@ -96,7 +93,7 @@ public class NewPetMapperTest {
 		NewPetMapper mapper = Mappers.getMapper(NewPetMapper.class);
 		mapper.setGenerator(generator);
 		
-		Pet actual = mapper.map(newPet, category);
+		Pet actual = mapper.map(newPet);
 		
 		assertEquals(petName, actual.getName());
 	}
@@ -104,11 +101,10 @@ public class NewPetMapperTest {
 	@Test
 	public void should_map_the_birth() {
 		String categoryId = "catx99";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("Cat x99")
-				.description("Cat x99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("Cat x99");
+		category.setDescription("Cat x99 Desc");
 		
 		LocalDate petBith = LocalDate.now();
 		NewPet newPet = NewPet.builder()
@@ -129,7 +125,7 @@ public class NewPetMapperTest {
 		NewPetMapper mapper = Mappers.getMapper(NewPetMapper.class);
 		mapper.setGenerator(generator);
 		
-		Pet actual = mapper.map(newPet, category);
+		Pet actual = mapper.map(newPet);
 		
 		assertEquals(petBith, actual.getBirth());
 	}
@@ -137,11 +133,10 @@ public class NewPetMapperTest {
 	@Test
 	public void should_map_the_bio() {
 		String categoryId = "catx99";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("Cat x99")
-				.description("Cat x99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("Cat x99");
+		category.setDescription("Cat x99 Desc");
 		
 		String petBio = "New pet Bio";
 		NewPet newPet = NewPet.builder()
@@ -162,7 +157,7 @@ public class NewPetMapperTest {
 		NewPetMapper mapper = Mappers.getMapper(NewPetMapper.class);
 		mapper.setGenerator(generator);
 		
-		Pet actual = mapper.map(newPet, category);
+		Pet actual = mapper.map(newPet);
 		
 		assertEquals(petBio, actual.getBio());
 	}
@@ -170,11 +165,10 @@ public class NewPetMapperTest {
 	@Test
 	public void should_map_the_category() {
 		String categoryId = "catx99";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("Cat x99")
-				.description("Cat x99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("Cat x99");
+		category.setDescription("Cat x99 Desc");
 		
 		NewPet newPet = NewPet.builder()
 				.name("New Pet")
@@ -194,8 +188,8 @@ public class NewPetMapperTest {
 		NewPetMapper mapper = Mappers.getMapper(NewPetMapper.class);
 		mapper.setGenerator(generator);
 		
-		Pet actual = mapper.map(newPet, category);
+		Pet actual = mapper.map(newPet);
 		
-		assertEquals(categoryId, actual.getCategory().getId());
+		assertEquals(categoryId, actual.getIdOfCategory());
 	}
 }

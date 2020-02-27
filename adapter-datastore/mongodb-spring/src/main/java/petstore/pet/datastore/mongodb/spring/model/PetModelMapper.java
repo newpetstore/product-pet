@@ -1,6 +1,6 @@
 /*
  * New Pet Store - 2019
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -20,32 +20,27 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 import org.mapstruct.NullValueCheckStrategy;
 import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.domain.exception.PetValidationException;
-import petstore.pet.usecase.port.CategoryDatastore;
 
 /**
- * 
+ *
  * @author fabiojose
  *
  */
 @Mapper(
-	componentModel = "spring"
+    componentModel = "spring"
 )
 public abstract class PetModelMapper {
 
-	public static final PetModelMapper INSTANCE = 
+	public static final PetModelMapper INSTANCE =
 			Mappers.getMapper(PetModelMapper.class);
-	
-	@Autowired
-	protected CategoryDatastore categories;
-	
+
 	/**
-	 * 
+	 *
 	 * @param model
-	 * @throws PetValidationException When categoryId is no present in the 
+	 * @throws PetValidationException When categoryId is no present in the
 	 * data store
 	 */
 	@Mapping(
@@ -53,12 +48,9 @@ public abstract class PetModelMapper {
 		nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 	)
 	@Mapping(source = "biography", target = "bio")
-	@Mapping(
-		expression =  "java(categories.get(model.getCategoryId()).orElse(null))",
-		target = "category"
-	)
+	@Mapping(source = "categoryId", target = "idOfCategory")
 	public abstract Pet map(PetModel model);
-	
+
 	@Mappings({
 		@Mapping(source = "id", target = "id"),
 		@Mapping(source = "name", target = "name"),
@@ -67,7 +59,7 @@ public abstract class PetModelMapper {
 			nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS
 		),
 		@Mapping(source = "bio", target = "biography"),
-		@Mapping(source = "category.id", target = "categoryId")
+		@Mapping(source = "idOfCategory", target = "categoryId")
 	})
 	public abstract PetModel map(Pet pet);
 }

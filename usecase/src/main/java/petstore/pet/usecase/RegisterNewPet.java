@@ -19,15 +19,15 @@ import static java.util.Objects.requireNonNull;
 
 import org.mapstruct.factory.Mappers;
 
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
+import petstore.pet.usecase.model.Category;
 import petstore.pet.usecase.model.NewPet;
 import petstore.pet.usecase.model.NewPet.NewPetMapper;
 import petstore.pet.usecase.model.PetCreated;
 import petstore.pet.usecase.model.PetCreated.PetCreatedMapper;
 import petstore.pet.domain.exception.PetValidationException;
-import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.port.Categories;
 import petstore.pet.usecase.port.PetIdGenerator;
 import petstore.pet.usecase.port.PetDatastore;
 
@@ -40,7 +40,7 @@ public class RegisterNewPet {
 	
 	private final PetDatastore pets;
 	
-	private final CategoryDatastore categories;
+	private final Categories categories;
 	
 	private final NewPetMapper mapper;
 	
@@ -52,7 +52,7 @@ public class RegisterNewPet {
 	 * @throws NullPointerException When any argument is <code>null</code>
 	 */
 	public RegisterNewPet(PetDatastore pets, PetIdGenerator petIdGenerator,
-			CategoryDatastore categories) {	
+			Categories categories) {	
 		this.pets = requireNonNull(pets);
 		this.categories = requireNonNull(categories);
 		
@@ -75,13 +75,13 @@ public class RegisterNewPet {
 		
 		// Get category by id
 		Category category = 
-			categories.get(_newPet.getIdOfCategory())
+			categories.getById(_newPet.getIdOfCategory())
 				.orElseThrow(() -> 
 					new PetValidationException("category.not.found"));
 		
 		// Mapping to domain entity
 		// - identity creation: see NewPetMapper
-		Pet _pet = mapper.map(_newPet, category);
+		Pet _pet = mapper.map(_newPet);
 		
 		// Already exists?
 		pets.get(_pet.getId())
@@ -94,6 +94,6 @@ public class RegisterNewPet {
 		
 		//TODO Fire event about pet creation?
 		
-		return PetCreatedMapper.INSTANCE.map(_pet);
+		return PetCreatedMapper.INSTANCE.map(_pet, category);
 	}	
 }

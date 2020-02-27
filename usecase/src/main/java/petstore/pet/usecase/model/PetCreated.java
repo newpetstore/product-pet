@@ -45,17 +45,22 @@ public class PetCreated {
 	private String name;
 	private LocalDate birthdate;
 	private String biography;
-	private CategoryCreated category;
+	private Category category;
 	
 	@Mapper
 	public static interface PetCreatedMapper {
 		
 		public static final PetCreatedMapper INSTANCE = 
 				Mappers.getMapper(PetCreatedMapper.class);
-		
-		@Mapping(source = "birth", target = "birthdate")
-		@Mapping(source = "bio", target = "biography")
-		PetCreated map(Pet pet);
+	
+		@Mapping(source = "pet.id", target = "id")
+		@Mapping(source = "pet.name", target = "name")
+		@Mapping(source = "pet.birth", target = "birthdate")
+		@Mapping(source = "pet.bio", target = "biography")
+		@Mapping(source = "category.id", target = "category.id")
+		@Mapping(source = "category.name", target = "category.name")
+		@Mapping(source = "category.description", target = "category.description")
+		PetCreated map(Pet pet, Category category);
 		
 	}
 }

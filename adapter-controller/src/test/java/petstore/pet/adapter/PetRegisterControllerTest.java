@@ -34,7 +34,7 @@ import petstore.pet.adapter.model.PetRequestMapper;
 import petstore.pet.adapter.model.PetResponse;
 import petstore.pet.adapter.model.PetResponseMapper;
 import petstore.pet.usecase.RegisterNewPet;
-import petstore.pet.usecase.model.CategoryCreated;
+import petstore.pet.usecase.model.Category;
 import petstore.pet.usecase.model.NewPet;
 import petstore.pet.usecase.model.PetCreated;
 
@@ -76,7 +76,7 @@ public class PetRegisterControllerTest {
 		String categoryName = "Cat 35";
 		String categoryDescription = "Cat 35 Description";
 		
-		CategoryCreated category = new CategoryCreated();
+		Category category = new Category();
 		category.setId(categoryId);
 		category.setName(categoryName);
 		category.setDescription(categoryDescription);

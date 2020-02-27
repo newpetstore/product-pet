@@ -21,7 +21,7 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import petstore.pet.usecase.model.CategoryCreated;
+import petstore.pet.usecase.model.Category;
 import petstore.pet.usecase.model.PetCreated;
 
 /**
@@ -34,7 +34,7 @@ public class PetResponseMapperTest {
 	@Test
 	public void should_map_usecase_id_to_id() {
 		
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId("catx88");
 		cat.setName("Cat 88");
 		cat.setDescription("Cat 88 Description");
@@ -55,7 +55,7 @@ public class PetResponseMapperTest {
 	@Test
 	public void should_map_usecase_name_to_name() {
 		
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId("catx88");
 		cat.setName("Cat 88");
 		cat.setDescription("Cat 88 Description");
@@ -76,7 +76,7 @@ public class PetResponseMapperTest {
 	@Test
 	public void should_map_usecase_bithdate_to_birthdate() {
 		
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId("catx88");
 		cat.setName("Cat 88");
 		cat.setDescription("Cat 88 Description");
@@ -97,7 +97,7 @@ public class PetResponseMapperTest {
 	@Test
 	public void should_map_usecase_biography_to_biography() {
 		
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId("catx88");
 		cat.setName("Cat 88");
 		cat.setDescription("Cat 88 Description");
@@ -119,7 +119,7 @@ public class PetResponseMapperTest {
 	public void should_map_usecase_category_id_to_category_id() {
 		
 		String categoryId = "catx88";
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId(categoryId);
 		cat.setName("Cat 88");
 		cat.setDescription("Cat 88 Description");
@@ -140,7 +140,7 @@ public class PetResponseMapperTest {
 	public void should_map_usecase_category_name_to_category_name() {
 		
 		String categoryName = "Cat 88";
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId("catx88");
 		cat.setName(categoryName);
 		cat.setDescription("Cat 88 Description");
@@ -161,7 +161,7 @@ public class PetResponseMapperTest {
 	public void should_map_usecase_category_description_to_category_description() {
 		
 		String categoryDescription = "Cat 88 Description";
-		CategoryCreated cat = new CategoryCreated();
+		Category cat = new Category();
 		cat.setId("catx88");
 		cat.setName("Cat 88");
 		cat.setDescription("Cat 88 Description");

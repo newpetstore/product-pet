@@ -27,7 +27,6 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import petstore.pet.adapter.datastore.inmemory.InMemoryPetDatastore;
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.port.PetDatastore;
 
@@ -50,18 +49,12 @@ public class InMemoryPetDatastoreTest {
 	@Test
 	public void should_create() {
 		
-		Category category = Category.builder()
-				.id("an id")
-				.name("cat")
-				.description("cat desc")
-				.build();
-		
 		Pet pet = Pet.builder()
 				.id("an id")
 				.name("a name")
 				.birth(LocalDate.now())
 				.bio("a bio")
-				.category(category)
+				.idOfCategory("an id")
 				.build();
 		
 		PetDatastore datastore = new InMemoryPetDatastore();
@@ -75,18 +68,12 @@ public class InMemoryPetDatastoreTest {
 	@Test
 	public void should_delete() {
 		
-		Category category = Category.builder()
-				.id("an id")
-				.name("cat")
-				.description("cat desc")
-				.build();
-		
 		Pet pet = Pet.builder()
 				.id("an id")
 				.name("a name")
 				.birth(LocalDate.now())
 				.bio("a bio")
-				.category(category)
+				.idOfCategory("an id")
 				.build();
 		
 		PetDatastore datastore = new InMemoryPetDatastore();
@@ -100,18 +87,12 @@ public class InMemoryPetDatastoreTest {
 	@Test
 	public void should_update() {
 		
-		Category category = Category.builder()
-				.id("an id")
-				.name("cat")
-				.description("cat desc")
-				.build();
-		
 		Pet pet = Pet.builder()
 				.id("an id")
 				.name("a name")
 				.birth(LocalDate.now())
 				.bio("a bio")
-				.category(category)
+				.idOfCategory("an id")
 				.build();
 		
 		PetDatastore datastore = new InMemoryPetDatastore();

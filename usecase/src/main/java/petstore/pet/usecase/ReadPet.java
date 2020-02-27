@@ -19,7 +19,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Optional;
 
 import petstore.pet.domain.entity.Pet;
-import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.port.Categories;
 import petstore.pet.usecase.port.PetDatastore;
 
 /**
@@ -30,14 +30,14 @@ import petstore.pet.usecase.port.PetDatastore;
 public class ReadPet {
 
 	private final PetDatastore pets;
-	private final CategoryDatastore categories;
+	private final Categories categories;
 	
 	/**
 	 * 
 	 * @param pets The instance to access pets data store
 	 * @throws NullPointerException When any argument is <code>null</code>
 	 */
-	public ReadPet(PetDatastore pets, CategoryDatastore categories) {
+	public ReadPet(PetDatastore pets, Categories categories) {
 		this.pets = requireNonNull(pets);
 		this.categories = requireNonNull(categories);
 	}

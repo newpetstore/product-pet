@@ -39,18 +39,18 @@ public class Pet {
 	private final String name;
 	private final LocalDate birth;
 	private final String bio;
-	private final Category category;
+	private final String idOfCategory;
 	
 	/**
 	 * @throws PetValidationException When some argument is non-valid
 	 */
 	@Builder(toBuilder = true)
-	Pet(String id, String name, LocalDate birth, String bio, Category category) {
+	Pet(String id, String name, LocalDate birth, String bio, String idOfCategory) {
 		this.id = requireNonEmpty(id, "id");
 		this.name = requireNonEmpty(name, "name");
 		this.birth = requireNonEmpty(birth, "birth");
 		this.bio = requireNonEmpty(bio, "bio");
-		this.category = requireNonEmpty(category, "category");
+		this.idOfCategory = requireNonEmpty(idOfCategory, "idOfCategory");
 	}
 	
 	static <T> T requireNonEmpty(T value, String argName) {

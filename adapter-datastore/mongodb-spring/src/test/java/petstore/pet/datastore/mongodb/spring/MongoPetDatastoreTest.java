@@ -28,10 +28,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import petstore.pet.datastore.mongodb.spring.model.CategoryModel;
 import petstore.pet.datastore.mongodb.spring.model.PetModel;
 import petstore.pet.datastore.mongodb.spring.model.PetModelMapper;
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.domain.exception.PetValidationException;
 
@@ -44,12 +42,6 @@ import petstore.pet.domain.exception.PetValidationException;
 @SpringBootTest
 public class MongoPetDatastoreTest {
 	
-	@Autowired
-	CategoryRepository categories;
-	
-	@Autowired
-	MongoCategoryDatastore categoriesDatastore;
-
 	@Autowired
 	PetRepository repository;
 	
@@ -79,9 +71,6 @@ public class MongoPetDatastoreTest {
 	public void should_throw_when_read_inconsistent_birth() {
 		
 		String categoryId = "cat008";
-		CategoryModel category = 
-				new CategoryModel(categoryId, "Cat 8", "Desc 8");
-		categories.save(category);
 				
 		String petId = "pet008";
 		PetModel create = new PetModel();
@@ -100,9 +89,6 @@ public class MongoPetDatastoreTest {
 	public void should_throw_when_read_inconsistent_bio() {
 		
 		String categoryId = "cat002";
-		CategoryModel category = 
-				new CategoryModel(categoryId, "Cat 2", "Desc 2");
-		categories.save(category);
 				
 		String petId = "pet002";
 		PetModel create = new PetModel();
@@ -121,9 +107,6 @@ public class MongoPetDatastoreTest {
 	public void should_throw_when_read_inconsistent_name() {
 		
 		String categoryId = "cat00c4";
-		CategoryModel category = 
-				new CategoryModel(categoryId, "Cat c4", "Desc c4");
-		categories.save(category);
 				
 		String petId = "pet00c4";
 		PetModel create = new PetModel();
@@ -167,20 +150,13 @@ public class MongoPetDatastoreTest {
 	@Test
 	public void should_create_pet() {
 		
-		Category cat = Category.builder()
-			.id("cato9")
-			.name("Cat o9")
-			.description("Des o9")
-			.build();
-		categoriesDatastore.put(cat);
-		
 		String petId = "pet003";
 		Pet expected = Pet.builder()
 			.id(petId)
 			.name("Pet 3")
 			.birth(LocalDate.now())
 			.bio("Pet bio")
-			.category(cat)
+			.idOfCategory("cat 99")
 			.build();
 		
 		datastore.put(expected);
@@ -196,20 +172,13 @@ public class MongoPetDatastoreTest {
 	@Test
 	public void should_update_existing_pet() {
 		
-		Category cat = Category.builder()
-				.id("cato9")
-				.name("Cat o9")
-				.description("Des o9")
-				.build();
-		categoriesDatastore.put(cat);
-		
 		String petId = "pet003";
 		Pet create = Pet.builder()
 			.id(petId)
 			.name("Pet 3")
 			.birth(LocalDate.now())
 			.bio("Pet bio")
-			.category(cat)
+			.idOfCategory("cat 99")
 			.build();
 		
 		datastore.put(create);
@@ -231,20 +200,13 @@ public class MongoPetDatastoreTest {
 	@Test
 	public void should_delete_existing_pet() {
 		
-		Category cat = Category.builder()
-				.id("cato9")
-				.name("Cat o9")
-				.description("Des o9")
-				.build();
-		categoriesDatastore.put(cat);
-		
 		String petId = "pet003";
 		Pet create = Pet.builder()
 			.id(petId)
 			.name("Pet 3")
 			.birth(LocalDate.now())
 			.bio("Pet bio")
-			.category(cat)
+			.idOfCategory("cat 99")
 			.build();
 		
 		datastore.put(create);
@@ -258,11 +220,6 @@ public class MongoPetDatastoreTest {
 	public void should_read_a_pet_by_id() {
 		
 		String categoryId = "cate3";
-		CategoryModel category = new CategoryModel();
-		category.setId(categoryId);
-		category.setName("Cat e3");
-		category.setDescription("Cat e3 Desc");
-		categories.save(category);
 		
 		String petId = "pet00e3";
 		PetModel create = new PetModel();

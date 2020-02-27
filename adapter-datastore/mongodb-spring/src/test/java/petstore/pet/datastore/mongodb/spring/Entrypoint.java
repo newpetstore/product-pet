@@ -17,17 +17,12 @@ package petstore.pet.datastore.mongodb.spring;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import petstore.pet.datastore.mongodb.spring.model.CategoryModel;
-
 /**
  * 
  * @author fabiojose
  *
  */
-@SpringBootApplication(scanBasePackageClasses = {
-	CategoryRepository.class,
-	CategoryModel.class
-})
+@SpringBootApplication
 public class Entrypoint {
 
 }

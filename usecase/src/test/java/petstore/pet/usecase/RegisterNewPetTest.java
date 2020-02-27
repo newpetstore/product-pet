@@ -29,13 +29,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.domain.exception.PetValidationException;
 import petstore.pet.usecase.exception.PetAlreadyExistsException;
+import petstore.pet.usecase.model.Category;
 import petstore.pet.usecase.model.NewPet;
 import petstore.pet.usecase.model.PetCreated;
-import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.port.Categories;
 import petstore.pet.usecase.port.PetIdGenerator;
 import petstore.pet.usecase.port.PetDatastore;
 
@@ -51,7 +51,7 @@ public class RegisterNewPetTest {
 	PetDatastore pets;
 	
 	@Mock
-	CategoryDatastore categories;
+	Categories categories;
 	
 	@Mock
 	PetIdGenerator generator;
@@ -92,7 +92,7 @@ public class RegisterNewPetTest {
 		// setup
 		String categoryId = "catx1";
 		
-		when(categories.get(categoryId))
+		when(categories.getById(categoryId))
 			.thenReturn(Optional.empty());
 		
 		NewPet newPet = NewPet.builder()
@@ -120,13 +120,12 @@ public class RegisterNewPetTest {
 		
 		// setup
 		String categoryId = "catx1";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("category")
-				.description("a desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("category");
+		category.setDescription("a desc");
 		
-		when(categories.get(categoryId))
+		when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 		
 		NewPet newPet = NewPet.builder()
@@ -157,14 +156,12 @@ public class RegisterNewPetTest {
 			.thenReturn(petId);
 		
 		String categoryId = "catx1";
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("category");
+		category.setDescription("a desc");
 		
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("a cat")
-				.description("cat desc")
-				.build();
-		
-		when(categories.get(categoryId))
+		when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 		
 		Pet pet = Pet.builder()
@@ -172,7 +169,7 @@ public class RegisterNewPetTest {
 			.name("a pet")
 			.birth(LocalDate.now())
 			.bio("a bio")
-			.category(category)
+			.idOfCategory(categoryId)
 			.build();
 		
 		when(pets.get(petId))

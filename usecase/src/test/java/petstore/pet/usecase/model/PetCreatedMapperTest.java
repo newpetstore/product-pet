@@ -22,7 +22,6 @@ import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.model.PetCreated.PetCreatedMapper;
 
@@ -35,12 +34,11 @@ public class PetCreatedMapperTest {
 
 	@Test
 	public void should_map_the_id() {
-		
-		Category category = Category.builder()
-				.id("cat 99")
-				.name("Cat 99")
-				.description("Cat 99 Desc")
-				.build();
+
+		Category category = new Category();
+		category.setId("cat 99");
+		category.setName("Cat 99 Name");
+		category.setDescription("Cat 99 Desc");
 		
 		String petId = "pet99";
 		Pet pet = Pet.builder()
@@ -48,23 +46,22 @@ public class PetCreatedMapperTest {
 				.name("Pet 99")
 				.birth(LocalDate.now())
 				.bio("Cat 99 Bio")
-				.category(category)
+				.idOfCategory(category.getId())
 				.build();
 		
 		PetCreatedMapper mapper = Mappers.getMapper(PetCreatedMapper.class);
 		
-		PetCreated actual = mapper.map(pet);
+		PetCreated actual = mapper.map(pet, category);
 		
 		assertEquals(petId, actual.getId());
 	}
 	
 	@Test
 	public void should_map_the_name() {
-		Category category = Category.builder()
-				.id("cat 99")
-				.name("Cat 99")
-				.description("Cat 99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId("cat 99");
+		category.setName("Cat 99 Name");
+		category.setDescription("Cat 99 Desc");
 		
 		String petName = "Pet 99";
 		Pet pet = Pet.builder()
@@ -72,23 +69,22 @@ public class PetCreatedMapperTest {
 				.name(petName)
 				.birth(LocalDate.now())
 				.bio("Cat 99 Bio")
-				.category(category)
+				.idOfCategory(category.getId())
 				.build();
 		
 		PetCreatedMapper mapper = Mappers.getMapper(PetCreatedMapper.class);
 		
-		PetCreated actual = mapper.map(pet);
+		PetCreated actual = mapper.map(pet, category);
 		
 		assertEquals(petName, actual.getName());
 	}
 	
 	@Test
 	public void should_map_the_birthdate() {
-		Category category = Category.builder()
-				.id("cat 99")
-				.name("Cat 99")
-				.description("Cat 99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId("cat 99");
+		category.setName("Cat 99 Name");
+		category.setDescription("Cat 99 Desc");
 		
 		LocalDate petBirth = LocalDate.now();
 		Pet pet = Pet.builder()
@@ -96,23 +92,22 @@ public class PetCreatedMapperTest {
 				.name("Pet 99")
 				.birth(petBirth)
 				.bio("Cat 99 Bio")
-				.category(category)
+				.idOfCategory(category.getId())
 				.build();
 		
 		PetCreatedMapper mapper = Mappers.getMapper(PetCreatedMapper.class);
 		
-		PetCreated actual = mapper.map(pet);
+		PetCreated actual = mapper.map(pet, category);
 		
 		assertEquals(petBirth, actual.getBirthdate());
 	}
 	
 	@Test
 	public void should_map_the_biography() {
-		Category category = Category.builder()
-				.id("cat 99")
-				.name("Cat 99")
-				.description("Cat 99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId("cat 99");
+		category.setName("Cat 99 Name");
+		category.setDescription("Cat 99 Desc");
 		
 		String petBio = "Cat 99 Bio";
 		Pet pet = Pet.builder()
@@ -120,12 +115,12 @@ public class PetCreatedMapperTest {
 				.name("Pet 99")
 				.birth(LocalDate.now())
 				.bio(petBio)
-				.category(category)
+				.idOfCategory(category.getId())
 				.build();
 		
 		PetCreatedMapper mapper = Mappers.getMapper(PetCreatedMapper.class);
 		
-		PetCreated actual = mapper.map(pet);
+		PetCreated actual = mapper.map(pet, category);
 		
 		assertEquals(petBio, actual.getBiography());
 	}
@@ -134,23 +129,22 @@ public class PetCreatedMapperTest {
 	public void should_map_the_category_id() {
 		
 		String categoryId = "cat99";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name("Cat 99")
-				.description("Cat 99 Desc")
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName("Cat 99 Name");
+		category.setDescription("Cat 99 Desc");
 	
 		Pet pet = Pet.builder()
 				.id("pet99")
 				.name("Pet 99")
 				.birth(LocalDate.now())
 				.bio("Cat 99 Bio")
-				.category(category)
+				.idOfCategory(categoryId)
 				.build();
 		
 		PetCreatedMapper mapper = Mappers.getMapper(PetCreatedMapper.class);
 		
-		PetCreated actual = mapper.map(pet);
+		PetCreated actual = mapper.map(pet, category);
 		
 		assertEquals(categoryId, actual.getCategory().getId());
 	}

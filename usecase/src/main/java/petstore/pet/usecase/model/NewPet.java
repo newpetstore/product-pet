@@ -26,7 +26,6 @@ import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
-import petstore.pet.domain.entity.Category;
 import petstore.pet.domain.entity.Pet;
 import petstore.pet.usecase.port.PetIdGenerator;
 
@@ -88,13 +87,9 @@ public class NewPet {
 		}
 
 		@Mapping(target = "id", expression = "java(generator.nextId())")
-		@Mapping(source = "pet.name", target = "name")
-		@Mapping(source = "pet.birthdate", target = "birth")
-		@Mapping(source = "pet.biography", target = "bio")
-		@Mapping(source = "category.id", target = "category.id")
-		@Mapping(source = "category.name", target = "category.name")
-		@Mapping(source = "category.description", target = "category.description")
-		public abstract Pet map(NewPet pet, Category category);
+		@Mapping(source = "birthdate", target = "birth")
+		@Mapping(source = "biography", target = "bio")
+		public abstract Pet map(NewPet pet);
 		
 	}
 }

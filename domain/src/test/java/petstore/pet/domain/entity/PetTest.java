@@ -25,7 +25,7 @@ public class PetTest {
 			.name("a pet")
 			.birth(LocalDate.now())
 			.bio("a bio")
-			.category(new Category("cid", "cname", "cdesc"));
+			.idOfCategory("cid");
 		
 		// assert
 		PetValidationException e = 
@@ -49,7 +49,7 @@ public class PetTest {
 			.name("a pet")
 			.birth(LocalDate.now())
 			.bio("a bio")
-			.category(new Category("cid", "cname", "cdesc"));
+			.idOfCategory("cid");
 		
 		// assert
 		PetValidationException e = 
@@ -73,7 +73,7 @@ public class PetTest {
 				.name("a pet")
 				.birth(null)
 				.bio("a bio")
-				.category(new Category("cid", "cname", "cdesc"));
+			    .idOfCategory("cid");
 		
 		// assert
 		PetValidationException e = 
@@ -97,7 +97,7 @@ public class PetTest {
 				.name("a pet")
 				.birth(LocalDate.now())
 				.bio(null)
-				.category(new Category("cid", "cname", "cdesc"));
+			    .idOfCategory("cid");
 		
 		// assert
 		PetValidationException e = 
@@ -121,7 +121,7 @@ public class PetTest {
 				.name("a pet")
 				.birth(LocalDate.now())
 				.bio("  ")
-				.category(new Category("cid", "cname", "cdesc"));
+			    .idOfCategory("cid");
 		
 		// assert
 		PetValidationException e = 
@@ -137,7 +137,7 @@ public class PetTest {
 	}
 	
 	@Test
-	public void should_throw_on_invalid_pet_category() {
+	public void should_throw_on_null_pet_category_id() {
 		
 		// setup
 		Pet.PetBuilder builder = Pet.builder()
@@ -145,7 +145,7 @@ public class PetTest {
 				.name("a pet")
 				.birth(LocalDate.now())
 				.bio("a bio")
-				.category(null);
+		 	    .idOfCategory(null);
 		
 		// assert
 		PetValidationException e = 
@@ -157,6 +157,31 @@ public class PetTest {
 			});
 		
 		// assert
-		assertEquals("category.should.not.be.null", e.getMessage());
+		assertEquals("idOfCategory.should.not.be.null", e.getMessage());
 	}
+
+	@Test
+	public void should_throw_on_empty_pet_category_id() {
+		
+		// setup
+		Pet.PetBuilder builder = Pet.builder()
+				.id("id")
+				.name("a pet")
+				.birth(LocalDate.now())
+				.bio("bio")
+			    .idOfCategory("  ");
+		
+		// assert
+		PetValidationException e = 
+			assertThrows(PetValidationException.class, () -> {
+				
+				// act
+				builder.build();
+				
+			});
+		
+		// assert
+		assertEquals("idOfCategory.should.not.be.empty", e.getMessage());
+	}
+	
 }

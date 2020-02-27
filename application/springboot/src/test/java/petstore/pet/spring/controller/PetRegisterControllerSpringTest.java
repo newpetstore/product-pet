@@ -21,9 +21,9 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 import petstore.pet.adapter.model.CategoryResponse;
 import petstore.pet.adapter.model.PetRequest;
 import petstore.pet.adapter.model.PetResponse;
-import petstore.pet.domain.entity.Category;
 import petstore.pet.spring.Entrypoint;
-import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.model.Category;
+import petstore.pet.usecase.port.Categories;
 import petstore.pet.usecase.port.PetIdGenerator;
 
 /**
@@ -40,7 +40,7 @@ import petstore.pet.usecase.port.PetIdGenerator;
 public class PetRegisterControllerSpringTest {
 	
 	@MockBean
-	CategoryDatastore categories;
+	Categories categories;
 	
 	@MockBean
 	PetIdGenerator idGenerator;
@@ -66,13 +66,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		LocalDate petBirthdate = LocalDate.now();
@@ -108,13 +107,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		LocalDate petBirthdate = LocalDate.now();
@@ -149,13 +147,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		LocalDate petBirthdate = LocalDate.now();
@@ -189,7 +186,7 @@ public class PetRegisterControllerSpringTest {
 		
 		String categoryId = "cat889";
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.empty());
 
 		LocalDate petBirthdate = LocalDate.now();
@@ -224,13 +221,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		String petBio = "Pet 889 Bio";
@@ -264,13 +260,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		PetRequest req = new PetRequest();
@@ -302,13 +297,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		PetRequest req = new PetRequest();
@@ -352,13 +346,12 @@ public class PetRegisterControllerSpringTest {
 		String categoryId = "cat889";
 		String categoryName = "Cat 889";
 		String caregoryDescription = "Cat 889 Description";
-		Category category = Category.builder()
-				.id(categoryId)
-				.name(categoryName)
-				.description(caregoryDescription)
-				.build();
+		Category category = new Category();
+		category.setId(categoryId);
+		category.setName(categoryName);
+		category.setDescription(caregoryDescription);
 		
-		Mockito.when(categories.get(categoryId))
+		Mockito.when(categories.getById(categoryId))
 			.thenReturn(Optional.of(category));
 
 		String petName = "Pet 889";

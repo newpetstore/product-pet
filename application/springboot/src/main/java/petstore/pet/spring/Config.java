@@ -22,7 +22,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 import petstore.pet.adapter.PetRegisterController;
 import petstore.pet.usecase.RegisterNewPet;
-import petstore.pet.usecase.port.CategoryDatastore;
+import petstore.pet.usecase.port.Categories;
 import petstore.pet.usecase.port.PetDatastore;
 import petstore.pet.usecase.port.PetIdGenerator;
 
@@ -48,7 +48,7 @@ public class Config {
 	public static RegisterNewPet registerNewPetUseCase(
 			PetDatastore pets,
 			PetIdGenerator petIdGenerator,
-			CategoryDatastore categories) {
+			Categories categories) {
 		
 		return new RegisterNewPet(pets, petIdGenerator, categories);
 	}
