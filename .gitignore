@@ -9,3 +9,6 @@ build
 .classpath
 .project
 bin/
+
+# Locust
+__pycache__/
